@@ -1,8 +1,11 @@
 package io.qameta.allure.model
 
+import kotlinx.serialization.Serializable
+
 /**
  * POJO that stores information about test fixtures.
  */
+@Serializable
 class TestResultContainer(
     var uuid: String? = null,
     var name: String? = null,

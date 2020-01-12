@@ -1,17 +1,19 @@
 package io.qameta.allure.model
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
 /**
  * Test statuses.
  */
-enum class Status(val value: String) {
-    FAILED("failed"),
-    BROKEN("broken"),
-    PASSED("passed"),
-    SKIPPED("skipped");
-
-    companion object {
-        fun fromValue(value: String): Status =
-            values().firstOrNull { it.value == value } ?: throw IllegalArgumentException(value)
-    }
-
+@Serializable
+enum class Status {
+    @SerialName("failed")
+    FAILED,
+    @SerialName("broken")
+    BROKEN,
+    @SerialName("passed")
+    PASSED,
+    @SerialName("skipped")
+    SKIPPED;
 }

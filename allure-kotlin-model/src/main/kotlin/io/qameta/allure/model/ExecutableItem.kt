@@ -1,9 +1,12 @@
 package io.qameta.allure.model
 
+import kotlinx.serialization.Serializable
+
 /**
  * POJO that stores common information about executable items.
  *
  */
+@Serializable
 abstract class ExecutableItem(
     var name: String? = null,
     var start: Long? = null,

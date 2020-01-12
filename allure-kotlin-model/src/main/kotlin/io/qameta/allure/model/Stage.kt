@@ -1,18 +1,23 @@
 package io.qameta.allure.model
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
 
 /**
  * Test stages.
  */
-enum class Stage(val value: String) {
-    SCHEDULED("scheduled"),
-    RUNNING("running"),
-    FINISHED("finished"),
-    PENDING("pending"),
-    INTERRUPTED("interrupted");
+@Serializable
+enum class Stage {
+    @SerialName("scheduled")
+    SCHEDULED,
+    @SerialName("running")
+    RUNNING,
+    @SerialName("finished")
+    FINISHED,
+    @SerialName("pending")
+    PENDING,
+    @SerialName("interrupted")
+    INTERRUPTED;
 
-    companion object {
-        fun fromValue(value: String): Stage =
-            values().firstOrNull { it.value == value } ?: throw IllegalArgumentException(value)
-    }
 }
