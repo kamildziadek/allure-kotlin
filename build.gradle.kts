@@ -1,3 +1,8 @@
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
 plugins {
     java
     kotlin("jvm") version "1.3.61"
@@ -12,6 +17,7 @@ configure(subprojects) {
 
     repositories {
         mavenCentral()
+        maven(url = "https://kotlin.bintray.com/kotlinx")
     }
 
     dependencies {
