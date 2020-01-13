@@ -12,9 +12,9 @@ import java.io.InputStream
 import java.nio.file.Paths
 import java.util.*
 
-class AllureLifecycle(
-    private val notifier: LifecycleNotifier = getDefaultNotifier(),
-    private val writer: AllureResultsWriter = getDefaultWriter()
+class AllureLifecycle @JvmOverloads constructor(
+    private val writer: AllureResultsWriter = getDefaultWriter(),
+    private val notifier: LifecycleNotifier = getDefaultNotifier()
 ) {
     private val storage: AllureStorage = AllureStorage()
     private val threadContext: AllureThreadContext = AllureThreadContext()

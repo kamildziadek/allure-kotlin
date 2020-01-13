@@ -16,6 +16,11 @@ import java.lang.annotation.Inherited
     AnnotationTarget.ANNOTATION_CLASS,
     AnnotationTarget.CLASS
 )
+/**
+ * Due do compatibility with Java 1.6, Kotlin doesn't support repeatable annotations.
+ * This annotation is still required in here, because of generic parsing of annotation containers
+ * @see [AnnotationUtils.extractRepeatable]
+ */
 @Repeatable
 @LabelAnnotation(name = ResultsUtils.STORY_LABEL_NAME)
 annotation class Story(val value: String)

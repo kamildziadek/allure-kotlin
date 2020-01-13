@@ -15,6 +15,7 @@ object Allure {
 
     private const val TXT_EXTENSION = ".txt"
     private const val TEXT_PLAIN = "text/plain"
+    @JvmStatic
     var lifecycle: AllureLifecycle = AllureLifecycle()
 
     /**

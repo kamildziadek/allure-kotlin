@@ -8,7 +8,7 @@ import io.qameta.allure.model.Link
 import java.lang.reflect.AnnotatedElement
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
-import java.util.Arrays
+import java.util.*
 import kotlin.collections.HashSet
 
 /**
@@ -67,12 +67,8 @@ object AnnotationUtils {
      * @param annotations annotations to analyse.
      * @return discovered labels.
      */
-    fun getLabels(vararg annotations: Annotation?): Set<Label> {
-        return getLabels(
-            Arrays.asList<Annotation>(
-                *annotations
-            )
-        )
+    fun getLabels(vararg annotations: Annotation): Set<Label> {
+        return getLabels(annotations.toList())
     }
 
     /**
@@ -105,25 +101,19 @@ object AnnotationUtils {
         candidate: Annotation,
         visited: MutableSet<Annotation>
     ): List<Result> {
-        if (!isInJavaLangAnnotationPackage(candidate.annotationType()) && visited.add(candidate)) {
+        if (!isOperationalAnnotation(candidate.annotationType()) && visited.add(candidate)) {
             val children = candidate.annotationType().annotations
                 .flatMap { extractRepeatable(it) }
-                .flatMap {
-                    extractMetaAnnotations(annotationType, mapper, it, visited)
-                }
+                .flatMap { extractMetaAnnotations(annotationType, mapper, it, visited) }
 
-            val current: List<Result> =
-                candidate.annotationType().getAnnotationsByType(annotationType)
-                    .flatMap { marker -> mapper(marker, candidate) }
+            val current = candidate.annotationType().getAnnotationsByType(annotationType)
+                .flatMap { marker -> mapper(marker, candidate) }
             return current + children
         }
         return emptyList()
     }
 
-    private fun extractLabels(
-        m: LabelAnnotation,
-        annotation: Annotation
-    ): List<Label> {
+    private fun extractLabels(m: LabelAnnotation, annotation: Annotation): List<Label> {
         return if (m.value == LabelAnnotation.DEFAULT_VALUE) {
             callValueMethod(annotation)
                 .map { ResultsUtils.createLabel(m.name, it) }
@@ -154,7 +144,7 @@ object AnnotationUtils {
         return try {
             val method: Method = annotation.annotationType().getMethod(VALUE_METHOD_NAME)
             val `object` = method.invoke(annotation)
-            listOf(ObjectUtils.toString(`object`))
+            objectToStringStream(`object`)
         } catch (e: NoSuchMethodException) {
             printError(
                 "Invalid annotation $annotation: marker annotations without value should contains value() method",
@@ -174,6 +164,23 @@ object AnnotationUtils {
             )
             emptyList()
         }
+    }
+
+    private fun objectToStringStream(data: Any?): List<String> {
+        if (data != null && data.javaClass.isArray) {
+            when (data) {
+                is LongArray -> return data.map(Long::toString)
+                is ShortArray -> return data.map(Short::toString)
+                is IntArray -> return data.map(Int::toString)
+                is CharArray -> return data.map(Char::toString)
+                is DoubleArray -> return data.map(Double::toString)
+                is FloatArray -> return data.map(Float::toString)
+                is BooleanArray -> return data.map(Boolean::toString)
+                is ByteArray -> return data.map(Byte::toString)
+                is Array<*> -> return data.map(Any?::toString)
+            }
+        }
+        return listOf(Objects.toString(data))
     }
 
 
@@ -208,8 +215,16 @@ object AnnotationUtils {
         return annotationType.isAnnotationPresent(Repeatable::class.java)
     }
 
+    private fun isOperationalAnnotation(annotationType: Class<out Annotation>?): Boolean {
+        return isInJavaLangAnnotationPackage(annotationType) || isKotlinMetadata(annotationType)
+    }
+
     private fun isInJavaLangAnnotationPackage(annotationType: Class<out Annotation>?): Boolean {
         return annotationType != null && annotationType.name.startsWith("java.lang.annotation")
+    }
+
+    private fun isKotlinMetadata(annotationType: Class<out Annotation>?): Boolean {
+        return annotationType != null && annotationType.name.startsWith("kotlin.Metadata")
     }
 }
 

@@ -7,7 +7,6 @@ import io.qameta.allure.model.*
 import io.qameta.allure.model.Link
 import io.qameta.allure.util.ObjectUtils.toString
 import io.qameta.allure.util.PropertiesUtils.loadAllureProperties
-import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.PrintWriter
 import java.io.StringWriter
@@ -349,14 +348,7 @@ object ResultsUtils {
         resourceName: String
     ): String? {
         return try {
-            classLoader.getResourceAsStream(resourceName).use {
-                it?.let { input ->
-                    val output = ByteArrayOutputStream()
-                    input.copyTo(output)
-                    val bytes: ByteArray = output.toByteArray()
-                    String(bytes, StandardCharsets.UTF_8)
-                }
-            }
+            classLoader.getResourceAsStream(resourceName)?.toByteArray()?.let { String(it, StandardCharsets.UTF_8) }
         } catch (e: IOException) {
             printError("Unable to process description resource file", e)
             null

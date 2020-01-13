@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
  * POJO that stores test result information.
  */
 @Serializable
-data class TestResult(
+data class TestResult @JvmOverloads constructor(
     val uuid: String,
     var historyId: String? = null,
     var testCaseId: String? = null,
