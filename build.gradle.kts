@@ -22,11 +22,25 @@ configure(subprojects) {
 
     dependencies {
         implementation(kotlin("stdlib"))
-        testImplementation("junit", "junit", "4.12")
     }
 
     configure<JavaPluginConvention> {
         sourceCompatibility = JavaVersion.VERSION_1_6
         targetCompatibility = JavaVersion.VERSION_1_6
+    }
+
+    tasks.test {
+        systemProperty("allure.model.indentOutput", "true")
+        testLogging {
+            events("passed", "skipped", "failed")
+        }
+    }
+
+    tasks.processTestResources {
+        filesMatching("**/allure.properties") {
+            filter {
+                it.replace("#project.description#", project.description ?: project.name)
+            }
+        }
     }
 }
