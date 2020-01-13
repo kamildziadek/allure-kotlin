@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Attachment(
+    val source: String,
     var name: String? = null,
-    var source: String? = null,
     var type: String? = null
 )

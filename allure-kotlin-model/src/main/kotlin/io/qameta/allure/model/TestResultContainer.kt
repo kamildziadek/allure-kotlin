@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 class TestResultContainer(
-    var uuid: String? = null,
+    val uuid: String,
     var name: String? = null,
     var description: String? = null,
     var descriptionHtml: String? = null,

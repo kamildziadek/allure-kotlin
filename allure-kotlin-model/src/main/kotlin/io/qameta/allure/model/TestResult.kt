@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class TestResult(
-    var uuid: String? = null,
+    val uuid: String,
     var historyId: String? = null,
     var testCaseId: String? = null,
     var rerunOf: String? = null,
