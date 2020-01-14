@@ -13,62 +13,48 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package io.qameta.allure.test;
+package io.qameta.allure.test
 
-import io.qameta.allure.AllureResultsWriter;
-import io.qameta.allure.model.TestResult;
-import io.qameta.allure.model.TestResultContainer;
-import io.qameta.allure.util.IOUtils;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
+import io.qameta.allure.AllureResultsWriter
+import io.qameta.allure.model.TestResult
+import io.qameta.allure.model.TestResultContainer
+import io.qameta.allure.util.toByteArray
+import java.io.IOException
+import java.io.InputStream
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.CopyOnWriteArrayList
 
 /**
  * @author Egor Borisov ehborisov@gmail.com
  */
-@SuppressWarnings("PMD.AvoidThrowingRawExceptionTypes")
-public class AllureResultsWriterStub implements AllureResultsWriter, AllureResults {
+class AllureResultsWriterStub : AllureResultsWriter, AllureResults {
+    private val _testResults: MutableList<TestResult> = CopyOnWriteArrayList()
+    private val _testContainers: MutableList<TestResultContainer> = CopyOnWriteArrayList()
+    private val _attachments: MutableMap<String, ByteArray> = ConcurrentHashMap()
 
-    private final List<TestResult> testResults = new CopyOnWriteArrayList<TestResult>();
-    private final List<TestResultContainer> testContainers = new CopyOnWriteArrayList<TestResultContainer>();
-    private final Map<String, byte[]> attachments = new ConcurrentHashMap<String, byte[]>();
-
-    @Override
-    public void write(final TestResult testResult) {
-        testResults.add(testResult);
+    override fun write(testResult: TestResult) {
+        _testResults.add(testResult)
     }
 
-    @Override
-    public void write(final TestResultContainer testResultContainer) {
-        testContainers.add(testResultContainer);
+    override fun write(testResultContainer: TestResultContainer) {
+        _testContainers.add(testResultContainer)
     }
 
-    @Override
-    public void write(final String source, final InputStream attachment) {
+    override fun write(source: String, attachment: InputStream) {
         try {
-            final byte[] bytes = IOUtils.toByteArray(attachment);
-            attachments.put(source, bytes);
-        } catch (IOException e) {
-            throw new RuntimeException("Could not read attachment content " + source, e);
+            val bytes = attachment.toByteArray()
+            _attachments[source] = bytes
+        } catch (e: IOException) {
+            throw RuntimeException("Could not read attachment content $source", e)
         }
     }
 
-    @Override
-    public List<TestResult> getTestResults() {
-        return testResults;
-    }
+    override val testResults: List<TestResult>
+        get() = _testResults
+    override val testResultContainers: List<TestResultContainer>
+        get() = _testContainers
+    override val attachments: Map<String, ByteArray>
+        get() = _attachments
 
-    @Override
-    public List<TestResultContainer> getTestResultContainers() {
-        return testContainers;
-    }
 
-    @Override
-    public Map<String, byte[]> getAttachments() {
-        return attachments;
-    }
 }

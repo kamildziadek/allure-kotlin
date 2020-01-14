@@ -182,7 +182,7 @@ object ResultsUtils {
     @JvmStatic
     fun createLink(
         value: String?, name: String?,
-        url: String?, type: String
+        url: String?, type: String?
     ): Link {
         val resolvedName = firstNonEmpty(value) ?: name
         val resolvedUrl = firstNonEmpty(url) ?: getLinkUrl(name = resolvedName, type = type)
@@ -293,7 +293,7 @@ object ResultsUtils {
             throw IllegalStateException("Can not find hashing algorithm", e)
         }
 
-    private fun getLinkUrl(name: String?, type: String): String? {
+    private fun getLinkUrl(name: String?, type: String?): String? {
         val properties = loadAllureProperties()
         val pattern = properties.getProperty(getLinkTypePatternPropertyName(type))
         return pattern?.replace("\\{}".toRegex(), name ?: "")

@@ -5,6 +5,7 @@ import io.github.glytching.junit.extension.system.SystemProperty
 import io.qameta.allure.*
 import io.qameta.allure.model.Label
 import io.qameta.allure.model.Link
+import io.qameta.allure.test.function
 import io.qameta.allure.util.AnnotationUtils.getLabels
 import io.qameta.allure.util.AnnotationUtils.getLinks
 import io.qameta.allure.util.AnnotationUtilsTest.Features.FeatureA.Story1
@@ -18,7 +19,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.parallel.ResourceAccessMode
 import org.junit.jupiter.api.parallel.ResourceLock
 import org.junit.jupiter.api.parallel.Resources
-import java.util.function.Function
 
 /**
  * @author charlie (Dmitry Baev).
@@ -33,7 +33,10 @@ internal class AnnotationUtilsTest {
     fun shouldExtractDefaultLabels() {
         val labels = getLabels(WithBddAnnotations::class.java)
         Assertions.assertThat(labels)
-            .extracting(function(Label::name), function(Label::value))
+            .extracting(
+                function(Label::name),
+                function(Label::value)
+            )
             .contains(
                 Assertions.tuple(EPIC_LABEL_NAME, "e1"),
                 Assertions.tuple(FEATURE_LABEL_NAME, "f1"),
@@ -48,7 +51,10 @@ internal class AnnotationUtilsTest {
     fun shouldExtractDirectRepeatableLabels() {
         val labels = getLabels(DirectRepeatableAnnotations::class.java)
         Assertions.assertThat(labels)
-            .extracting(function(Label::name), function(Label::value))
+            .extracting(
+                function(Label::name),
+                function(Label::value)
+            )
             .contains(
                 Assertions.tuple(EPIC_LABEL_NAME, "e1"),
                 Assertions.tuple(EPIC_LABEL_NAME, "e2")
@@ -73,7 +79,10 @@ internal class AnnotationUtilsTest {
     fun shouldExtractCustomAnnotations() {
         val labels = getLabels(CustomAnnotation::class.java)
         Assertions.assertThat(labels)
-            .extracting(function(Label::name), function(Label::value))
+            .extracting(
+                function(Label::name),
+                function(Label::value)
+            )
             .contains(
                 Assertions.tuple("custom", "Some")
             )
@@ -97,7 +106,10 @@ internal class AnnotationUtilsTest {
     fun shouldSupportMultiValueAnnotations() {
         val labels = getLabels(CustomMultiValueAnnotation::class.java)
         Assertions.assertThat(labels)
-            .extracting(function(Label::name), function(Label::value))
+            .extracting(
+                function(Label::name),
+                function(Label::value)
+            )
             .contains(
                 Assertions.tuple("custom", "First"),
                 Assertions.tuple("custom", "Second")
@@ -122,7 +134,10 @@ internal class AnnotationUtilsTest {
     fun shouldSupportCustomFixedAnnotations() {
         val labels = getLabels(CustomFixedAnnotation::class.java)
         Assertions.assertThat(labels)
-            .extracting(function(Label::name), function(Label::value))
+            .extracting(
+                function(Label::name),
+                function(Label::value)
+            )
             .contains(
                 Assertions.tuple("custom", "fixed")
             )
@@ -157,7 +172,10 @@ internal class AnnotationUtilsTest {
     fun shouldSupportCustomMultiLabelAnnotations() {
         val labels = getLabels(CustomMultiLabelAnnotation::class.java)
         Assertions.assertThat(labels)
-            .extracting(function(Label::name), function(Label::value))
+            .extracting(
+                function(Label::name),
+                function(Label::value)
+            )
             .contains(
                 Assertions.tuple("a", "a1"),
                 Assertions.tuple("a", "a2"),
@@ -300,7 +318,10 @@ internal class AnnotationUtilsTest {
     fun shouldSupportMultiFeature() {
         val labels = getLabels(WithMultiFeature::class.java)
         Assertions.assertThat(labels)
-            .extracting(function(Label::name), function(Label::value))
+            .extracting(
+                function(Label::name),
+                function(Label::value)
+            )
             .contains(
                 Assertions.tuple("feature", "First"),
                 Assertions.tuple("feature", "Second"),
@@ -327,7 +348,10 @@ internal class AnnotationUtilsTest {
     fun shouldExtractLabelsFromRecursiveAnnotations() {
         val labels = getLabels(WithRecurse::class.java)
         Assertions.assertThat(labels)
-            .extracting(function(Label::name), function(Label::value))
+            .extracting(
+                function(Label::name),
+                function(Label::value)
+            )
             .contains(
                 Assertions.tuple("recursive", "first"),
                 Assertions.tuple("recursive", "second")
@@ -396,7 +420,10 @@ internal class AnnotationUtilsTest {
     fun complexCase() {
         val labels1 = getLabels(Test1::class.java)
         Assertions.assertThat(labels1)
-            .extracting(function(Label::name), function(Label::value))
+            .extracting(
+                function(Label::name),
+                function(Label::value)
+            )
             .containsExactlyInAnyOrder(
                 Assertions.tuple("feature", "A"),
                 Assertions.tuple("story", "s1"),
@@ -404,7 +431,10 @@ internal class AnnotationUtilsTest {
             )
         val labels2 = getLabels(Test2::class.java)
         Assertions.assertThat(labels2)
-            .extracting(function(Label::name), function(Label::value))
+            .extracting(
+                function(Label::name),
+                function(Label::value)
+            )
             .containsExactlyInAnyOrder(
                 Assertions.tuple("feature", "B"),
                 Assertions.tuple("story", "s2"),
@@ -412,7 +442,10 @@ internal class AnnotationUtilsTest {
             )
         val labels3 = getLabels(Test3::class.java)
         Assertions.assertThat(labels3)
-            .extracting(function(Label::name), function(Label::value))
+            .extracting(
+                function(Label::name),
+                function(Label::value)
+            )
             .containsExactlyInAnyOrder(
                 Assertions.tuple("feature", "A"),
                 Assertions.tuple("story", "s1"),
@@ -424,4 +457,3 @@ internal class AnnotationUtilsTest {
     }
 }
 
-private fun <T> function(extraction: (T) -> Any?): Function<T, Any?> = Function { extraction(it) }

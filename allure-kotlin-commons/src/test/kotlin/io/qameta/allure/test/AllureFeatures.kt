@@ -13,208 +13,325 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package io.qameta.allure.test;
+package io.qameta.allure.test
 
-import io.qameta.allure.Feature;
-
-import java.lang.annotation.*;
+import io.qameta.allure.Feature
+import java.lang.annotation.Inherited
 
 /**
  * @author charlie (Dmitry Baev).
  */
-@SuppressWarnings({"JavadocType", "PMD.MissingStaticMethodInNonInstantiatableClass"})
-@Target({})
-public @interface AllureFeatures {
-
-    @Documented
+@Target
+annotation class AllureFeatures {
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("Basic framework support")
-    @interface Base {
-    }
+    annotation class Base
 
-    @Documented
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("Parallel test execution support")
-    @interface Parallel {
-    }
+    annotation class Parallel
 
-    @Documented
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("Full name")
-    @interface FullName {
-    }
+    annotation class FullName
 
-    @Documented
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("Display name")
-    @interface DisplayName {
-    }
+    annotation class DisplayName
 
-    @Documented
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("Descriptions")
-    @interface Descriptions {
-    }
+    annotation class Descriptions
 
-    @Documented
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("Timings")
-    @interface Timings {
-    }
+    annotation class Timings
 
-    @Documented
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("Steps")
-    @interface Steps {
-    }
+    annotation class Steps
 
-    @Documented
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("Attachments")
-    @interface Attachments {
-    }
+    annotation class Attachments
 
-    @Documented
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("Parameters")
-    @interface Parameters {
-    }
+    annotation class Parameters
 
-    @Documented
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("Fixtures")
-    @interface Fixtures {
-    }
+    annotation class Fixtures
 
-    @Documented
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("Links")
-    @interface Links {
-    }
+    annotation class Links
 
-    @Documented
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("Marker annotations")
-    @interface MarkerAnnotations {
-    }
+    annotation class MarkerAnnotations
 
-    @Documented
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("Failed tests")
-    @interface FailedTests {
-    }
+    annotation class FailedTests
 
-    @Documented
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("Broken tests")
-    @interface BrokenTests {
-    }
+    annotation class BrokenTests
 
-    @Documented
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("Passed tests")
-    @interface PassedTests {
-    }
+    annotation class PassedTests
 
-    @Documented
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("Skipped tests")
-    @interface SkippedTests {
-    }
+    annotation class SkippedTests
 
-    @Documented
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("Ignored tests")
-    @interface IgnoredTests {
-    }
+    annotation class IgnoredTests
 
-    @Documented
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("Not implemented tests")
-    @interface NotImplementedTests {
-    }
+    annotation class NotImplementedTests
 
-    @Documented
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("History")
-    @interface History {
-    }
+    annotation class History
 
-    @Documented
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("Retries")
-    @interface Retries {
-    }
+    annotation class Retries
 
-    @Documented
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("Stages")
-    @interface Stages {
-    }
+    annotation class Stages
 
-    @Documented
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("Trees")
-    @interface Trees {
-    }
+    annotation class Trees
 
-    @Documented
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("Timeline")
-    @interface Timeline {
-    }
+    annotation class Timeline
 
-    @Documented
+    @MustBeDocumented
     @Inherited
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({ElementType.METHOD, ElementType.TYPE})
+    @Retention(AnnotationRetention.RUNTIME)
+    @Target(
+        AnnotationTarget.FUNCTION,
+        AnnotationTarget.PROPERTY_GETTER,
+        AnnotationTarget.PROPERTY_SETTER,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.CLASS
+    )
     @Feature("Timeline")
-    @interface Severity {
-    }
+    annotation class Severity
 }

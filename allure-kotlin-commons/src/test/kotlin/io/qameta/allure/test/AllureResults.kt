@@ -13,23 +13,16 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package io.qameta.allure.test;
+package io.qameta.allure.test
 
-import io.qameta.allure.model.TestResult;
-import io.qameta.allure.model.TestResultContainer;
-
-import java.util.List;
-import java.util.Map;
+import io.qameta.allure.model.TestResult
+import io.qameta.allure.model.TestResultContainer
 
 /**
  * @author charlie (Dmitry Baev).
  */
-public interface AllureResults {
-
-    List<TestResult> getTestResults();
-
-    List<TestResultContainer> getTestResultContainers();
-
-    Map<String, byte[]> getAttachments();
-
+interface AllureResults {
+    val testResults: List<TestResult>
+    val testResultContainers: List<TestResultContainer>
+    val attachments: Map<String, ByteArray>
 }
