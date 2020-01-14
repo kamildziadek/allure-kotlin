@@ -1,18 +1,4 @@
-/*
- *  Copyright 2019 Qameta Software OÜ
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
+
 package io.qameta.allure.junit4
 
 import io.qameta.allure.Allure
@@ -147,12 +133,9 @@ class AllureJunit4 @JvmOverloads constructor(val lifecycle: AllureLifecycle = Al
         return StatusDetails(message = message)
     }
 
-    private fun createTestResult(
-        uuid: String,
-        description: Description
-    ): TestResult {
-        val className = description.className
-        val methodName = description.methodName
+    private fun createTestResult(uuid: String, description: Description): TestResult {
+        val className: String = description.className
+        val methodName: String? = description.methodName
         val name = methodName ?: className
         val fullName = if (methodName != null) "$className.$methodName" else className
         val suite: String = description.testClass?.getAnnotation(DisplayName::class.java)?.value ?: className

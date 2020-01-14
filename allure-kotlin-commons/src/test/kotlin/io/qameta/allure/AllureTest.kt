@@ -40,7 +40,10 @@ class AllureTest {
         )
         Assertions.assertThat(results.testResults)
             .flatExtracting<StepResult, RuntimeException>(TestResult::steps)
-            .extracting(function(StepResult::name), function(StepResult::status))
+            .extracting(
+                function(StepResult::name),
+                function(StepResult::status)
+            )
             .containsExactly(
                 Assertions.tuple("first", Status.PASSED),
                 Assertions.tuple("second", Status.PASSED),
@@ -60,7 +63,10 @@ class AllureTest {
         )
         Assertions.assertThat(results.testResults)
             .flatExtracting<StepResult, RuntimeException>(TestResult::steps)
-            .extracting(function(StepResult::name), function(StepResult::status))
+            .extracting(
+                function(StepResult::name),
+                function(StepResult::status)
+            )
             .containsExactly(
                 Assertions.tuple("first", Status.PASSED),
                 Assertions.tuple("second", Status.PASSED),
@@ -89,7 +95,10 @@ class AllureTest {
             .containsExactly("something wrong")
         Assertions.assertThat(results.testResults)
             .flatExtracting<StepResult, RuntimeException>(TestResult::steps)
-            .extracting(function(StepResult::name), function(StepResult::status))
+            .extracting(
+                function(StepResult::name),
+                function(StepResult::status)
+            )
             .containsExactly(
                 Assertions.tuple("first", Status.PASSED),
                 Assertions.tuple("second", Status.BROKEN)
@@ -133,7 +142,10 @@ class AllureTest {
         )
         Assertions.assertThat(results.testResults)
             .flatExtracting<Parameter, RuntimeException>(TestResult::parameters)
-            .extracting(function(Parameter::name), function(Parameter::value))
+            .extracting(
+                function(Parameter::name),
+                function(Parameter::value)
+            )
             .contains(
                 Assertions.tuple(name, value),
                 Assertions.tuple(name1, value1),
@@ -202,7 +214,10 @@ class AllureTest {
             .hasSize(1)
         Assertions.assertThat(results.testResults)
             .flatExtracting<StepResult, RuntimeException>(TestResult::steps)
-            .extracting(function(StepResult::name), function(StepResult::status))
+            .extracting(
+                function(StepResult::name),
+                function(StepResult::status)
+            )
             .containsExactly(
                 Assertions.tuple("set up test database", Status.SKIPPED),
                 Assertions.tuple("set up test create mocks", Status.PASSED),
@@ -215,7 +230,10 @@ class AllureTest {
             .flatMap { it.steps }
             .filter { it.name == "get data" }
             .flatMap { it.steps })
-            .extracting(function(StepResult::name), function(StepResult::status))
+            .extracting(
+                function(StepResult::name),
+                function(StepResult::status)
+            )
             .containsExactly(
                 Assertions.tuple("build client", Status.PASSED),
                 Assertions.tuple("run request", Status.PASSED)
@@ -226,7 +244,10 @@ class AllureTest {
             .flatMap { it.steps }
             .filter { it.name == "run request" }
             .flatMap { it.parameters })
-            .extracting(function(Parameter::name), function(Parameter::value))
+            .extracting(
+                function(Parameter::name),
+                function(Parameter::value)
+            )
             .containsExactly(
                 Assertions.tuple("authorization", "Basic admin:admin"),
                 Assertions.tuple("url", "https://example.com/getData"),

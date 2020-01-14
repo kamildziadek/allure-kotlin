@@ -1,0 +1,28 @@
+package io.qameta.allure.junit4.samples
+
+import io.qameta.allure.*
+import org.assertj.core.api.Assertions
+import org.junit.Test
+
+/**
+ * @author charlie (Dmitry Baev).
+ */
+class FailedTest {
+    @Test
+    @Links(
+        Link("link-1"),
+        Link("link-2")
+    )
+    @Issues(
+        Issue("issue-1"),
+        Issue("issue-2")
+    )
+    @TmsLinks(
+        TmsLink("tms-1"),
+        TmsLink("tms-2")
+    )
+    @Throws(Exception::class)
+    fun failedTest() {
+        Assertions.assertThat(true).isFalse()
+    }
+}
