@@ -189,20 +189,19 @@ object ResultsUtils {
         return Link(name = resolvedName, url = resolvedUrl, type = type)
     }
 
-    val providedLabels: Set<Label>
-        get() {
-            val properties = loadAllureProperties()
-            val propertyNames = properties.stringPropertyNames()
-            return propertyNames.asSequence()
-                .filter { name: String -> name.startsWith("allure.label.") }
-                .map { name: String ->
-                    val labelName = name.substring(13)
-                    val labelValue = properties.getProperty(name)
-                    Label(name = labelName, value = labelValue)
-                }
-                .filter { it.value != null }
-                .toSet()
-        }
+    fun getProvidedLabels(): Set<Label> {
+        val properties = loadAllureProperties()
+        val propertyNames = properties.stringPropertyNames()
+        return propertyNames.asSequence()
+            .filter { name: String -> name.startsWith("allure.label.") }
+            .map { name: String ->
+                val labelName = name.substring(13)
+                val labelValue = properties.getProperty(name)
+                Label(name = labelName, value = labelValue)
+            }
+            .filter { it.value != null }
+            .toSet()
+    }
 
     val hostName: String?
         get() {
