@@ -4,6 +4,9 @@ import io.qameta.allure.model.FixtureResult
 import io.qameta.allure.model.StepResult
 import io.qameta.allure.model.TestResult
 import io.qameta.allure.model.TestResultContainer
+import io.qameta.allure.util.error
+import io.qameta.allure.util.loggerFor
+import java.util.logging.Logger
 
 /**
  * @since 2.0
@@ -139,18 +142,12 @@ class LifecycleNotifier(
             try {
                 method.invoke(listener)
             } catch (e: Exception) {
-                printError("Could not invoke listener method", e)
+                LOGGER.error("Could not invoke listener method", e)
             }
         }
     }
-}
 
-fun printDebug(logMessage: String) {
-    println(logMessage)
-}
-
-//TODO error logging
-fun printError(logMessage: String, exception: Throwable? = null) {
-    println(logMessage)
-    exception?.printStackTrace()
+    companion object {
+        private val LOGGER: Logger = loggerFor<LifecycleNotifier>()
+    }
 }

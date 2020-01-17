@@ -1,14 +1,16 @@
 package io.qameta.allure.util
 
-import io.qameta.allure.listener.printError
 import java.io.IOException
 import java.util.*
+import java.util.logging.Logger
 
 /**
  * The collection of properties utils methods.
  */
 object PropertiesUtils {
     private const val ALLURE_PROPERTIES_FILE = "allure.properties"
+    private val LOGGER: Logger = loggerFor<PropertiesUtils>()
+
     @JvmStatic
     fun loadAllureProperties(): Properties = Properties().apply {
         loadPropertiesFrom(ClassLoader.getSystemClassLoader())
@@ -22,7 +24,7 @@ object PropertiesUtils {
                 classLoader.getResourceAsStream(ALLURE_PROPERTIES_FILE)
                     .use { stream -> load(stream) }
             } catch (e: IOException) {
-                printError("Error while reading allure.properties file from classpath: ${e.message}", e)
+                LOGGER.error("Error while reading allure.properties file from classpath: ${e.message}", e)
             }
         }
     }

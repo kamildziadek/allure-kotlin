@@ -1,8 +1,6 @@
 package io.qameta.allure.util
 
 import io.qameta.allure.*
-import io.qameta.allure.listener.printDebug
-import io.qameta.allure.listener.printError
 import io.qameta.allure.model.*
 import io.qameta.allure.model.Link
 import io.qameta.allure.util.ObjectUtils.toString
@@ -18,11 +16,15 @@ import java.net.UnknownHostException
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
+import java.util.logging.Logger
 
 /**
  * The collection of Allure utils methods.
  */
 object ResultsUtils {
+
+    private val LOGGER: Logger = loggerFor<ResultsUtils>()
+
     const val ALLURE_HOST_NAME_SYSPROP = "allure.hostName"
     const val ALLURE_HOST_NAME_ENV = "ALLURE_HOST_NAME"
     const val ALLURE_THREAD_NAME_SYSPROP = "allure.threadName"
@@ -303,7 +305,7 @@ object ResultsUtils {
             try {
                 InetAddress.getLocalHost().hostName
             } catch (e: UnknownHostException) {
-                printDebug("Could not get host name $e")
+                LOGGER.debug("Could not get host name $e")
                 "default"
             }.also {
                 cachedHost = it
@@ -349,7 +351,7 @@ object ResultsUtils {
         return try {
             classLoader.getResourceAsStream(resourceName)?.toByteArray()?.let { String(it, StandardCharsets.UTF_8) }
         } catch (e: IOException) {
-            printError("Unable to process description resource file", e)
+            LOGGER.error("Unable to process description resource file", e)
             null
         }
     }

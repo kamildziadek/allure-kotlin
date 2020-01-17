@@ -1,8 +1,7 @@
 package io.qameta.allure.util
 
-import io.qameta.allure.listener.printDebug
-import io.qameta.allure.listener.printError
 import java.util.*
+import java.util.logging.Logger
 
 /**
  * Internal service loader util.
@@ -12,6 +11,7 @@ import java.util.*
  * @since 2.0
  */
 object ServiceLoaderUtils {
+    private val LOGGER: Logger = loggerFor<ServiceLoaderUtils>()
     /**
      * Load implementation by given type.
      *
@@ -27,9 +27,9 @@ object ServiceLoaderUtils {
             try {
                 val next = iterator.next()
                 loaded.add(next)
-                printDebug("Found $type")
+                LOGGER.debug("Found $type")
             } catch (e: Exception) {
-                printError("Could not load $type: $e", e)
+                LOGGER.error("Could not load $type: $e", e)
             }
         }
         return loaded
@@ -50,7 +50,7 @@ object ServiceLoaderUtils {
             */
             hasNext()
         } catch (e: Exception) {
-            printError("iterator.hasNext() failed", e)
+            LOGGER.error("iterator.hasNext() failed", e)
             false
         }
     }

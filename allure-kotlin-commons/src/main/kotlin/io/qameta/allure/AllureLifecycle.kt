@@ -7,10 +7,13 @@ import io.qameta.allure.model.*
 import io.qameta.allure.model.Attachment
 import io.qameta.allure.util.PropertiesUtils
 import io.qameta.allure.util.ServiceLoaderUtils
+import io.qameta.allure.util.error
+import io.qameta.allure.util.loggerFor
 import java.io.ByteArrayInputStream
 import java.io.InputStream
 import java.nio.file.Paths
 import java.util.*
+import java.util.logging.Logger
 
 class AllureLifecycle @JvmOverloads constructor(
     private val writer: AllureResultsWriter = getDefaultWriter(),
@@ -54,7 +57,7 @@ class AllureLifecycle @JvmOverloads constructor(
      */
     fun updateTestContainer(uuid: String, updateBlock: (TestResultContainer) -> Unit) {
         val container = storage.getContainer(uuid) ?: return Unit.also {
-            printError("Could not update test container: container with uuid $uuid not found")
+            LOGGER.error("Could not update test container: container with uuid $uuid not found")
         }
         notifier.beforeContainerUpdate(container)
         updateBlock(container)
@@ -68,7 +71,7 @@ class AllureLifecycle @JvmOverloads constructor(
      */
     fun stopTestContainer(uuid: String) {
         val container = storage.getContainer(uuid) ?: return Unit.also {
-            printError("Could not stop test container: container with uuid $uuid not found")
+            LOGGER.error("Could not stop test container: container with uuid $uuid not found")
         }
         notifier.beforeContainerStop(container)
         container.stop = System.currentTimeMillis()
@@ -82,7 +85,7 @@ class AllureLifecycle @JvmOverloads constructor(
      */
     fun writeTestContainer(uuid: String) {
         val container = storage.getContainer(uuid) ?: return Unit.also {
-            printError("Could not write test container: container with uuid $uuid not found")
+            LOGGER.error("Could not write test container: container with uuid $uuid not found")
         }
         notifier.beforeContainerWrite(container)
         writer.write(container)
@@ -148,7 +151,7 @@ class AllureLifecycle @JvmOverloads constructor(
      */
     fun updateFixture(updateBlock: (FixtureResult) -> Unit) {
         val uuid = threadContext.root ?: return Unit.also {
-            printError("Could not update test fixture: no test fixture running")
+            LOGGER.error("Could not update test fixture: no test fixture running")
         }
         updateFixture(uuid, updateBlock)
     }
@@ -161,7 +164,7 @@ class AllureLifecycle @JvmOverloads constructor(
      */
     fun updateFixture(uuid: String, updateBlock: (FixtureResult) -> Unit) {
         val fixture = storage.getFixture(uuid) ?: return Unit.also {
-            printError("Could not update test fixture: test fixture with uuid $uuid not found")
+            LOGGER.error("Could not update test fixture: test fixture with uuid $uuid not found")
         }
         notifier.beforeFixtureUpdate(fixture)
         updateBlock(fixture)
@@ -175,7 +178,7 @@ class AllureLifecycle @JvmOverloads constructor(
      */
     fun stopFixture(uuid: String) {
         val fixture = storage.getFixture(uuid) ?: return Unit.also {
-            printError("Could not update test fixture: test fixture with uuid $uuid not found")
+            LOGGER.error("Could not update test fixture: test fixture with uuid $uuid not found")
         }
         notifier.beforeFixtureStop(fixture)
         fixture.stage = Stage.FINISHED
@@ -254,7 +257,7 @@ class AllureLifecycle @JvmOverloads constructor(
     fun startTestCase(uuid: String) {
         threadContext.clear()
         val testResult = storage.getTestResult(uuid) ?: return Unit.also {
-            printError("Could not start test case: test case with uuid $uuid is not scheduled")
+            LOGGER.error("Could not start test case: test case with uuid $uuid is not scheduled")
         }
         notifier.beforeTestStart(testResult)
         with(testResult) {
@@ -272,7 +275,7 @@ class AllureLifecycle @JvmOverloads constructor(
      */
     fun updateTestCase(update: (TestResult) -> Unit) {
         val uuid = threadContext.root ?: return Unit.also {
-            printError("Could not update test case: no test case running")
+            LOGGER.error("Could not update test case: no test case running")
         }
         updateTestCase(uuid, update)
     }
@@ -285,7 +288,7 @@ class AllureLifecycle @JvmOverloads constructor(
      */
     fun updateTestCase(uuid: String, update: (TestResult) -> Unit) {
         val testResult = storage.getTestResult(uuid) ?: return Unit.also {
-            printError("Could not update test case: test case with uuid $uuid not found")
+            LOGGER.error("Could not update test case: test case with uuid $uuid not found")
         }
         notifier.beforeTestUpdate(testResult)
         update(testResult)
@@ -302,7 +305,7 @@ class AllureLifecycle @JvmOverloads constructor(
      */
     fun stopTestCase(uuid: String) {
         val testResult = storage.getTestResult(uuid) ?: return Unit.also {
-            printError("Could not stop test case: test case with uuid $uuid not found")
+            LOGGER.error("Could not stop test case: test case with uuid $uuid not found")
         }
 
         notifier.beforeTestStop(testResult)
@@ -321,7 +324,7 @@ class AllureLifecycle @JvmOverloads constructor(
      */
     fun writeTestCase(uuid: String) {
         val testResult = storage.getTestResult(uuid) ?: return Unit.also {
-            printError("Could not write test case: test case with uuid $uuid not found")
+            LOGGER.error("Could not write test case: test case with uuid $uuid not found")
         }
         notifier.beforeTestWrite(testResult)
         writer.write(testResult)
@@ -338,7 +341,7 @@ class AllureLifecycle @JvmOverloads constructor(
      */
     fun startStep(uuid: String, result: StepResult) {
         val parentUuid = threadContext.current ?: return Unit.also {
-            printError("Could not start step: no test case running")
+            LOGGER.error("Could not start step: no test case running")
         }
         startStep(parentUuid, uuid, result)
     }
@@ -373,7 +376,7 @@ class AllureLifecycle @JvmOverloads constructor(
      */
     fun updateStep(update: (StepResult) -> Unit) {
         val uuid = threadContext.current ?: return Unit.also {
-            printError("Could not update step: no step running")
+            LOGGER.error("Could not update step: no step running")
         }
         updateStep(uuid, update)
     }
@@ -386,7 +389,7 @@ class AllureLifecycle @JvmOverloads constructor(
      */
     fun updateStep(uuid: String, update: (StepResult) -> Unit) {
         val step = storage.getStep(uuid) ?: return Unit.also {
-            printError("Could not update step: step with uuid $uuid not found")
+            LOGGER.error("Could not update step: step with uuid $uuid not found")
         }
         notifier.beforeStepUpdate(step)
         update(step)
@@ -399,14 +402,14 @@ class AllureLifecycle @JvmOverloads constructor(
     fun stopStep() {
         val root: String? = threadContext.root
         val uuid = threadContext.current.takeIf { it != root } ?: return Unit.also {
-            printError("Could not stop step: no step running")
+            LOGGER.error("Could not stop step: no step running")
         }
         stopStep(uuid)
     }
 
     fun stopStep(uuid: String) {
         val step = storage.getStep(uuid) ?: return Unit.also {
-            printError("Could not stop step: step with uuid $uuid not found")
+            LOGGER.error("Could not stop step: step with uuid $uuid not found")
         }
 
         notifier.beforeStepStop(step)
@@ -456,7 +459,7 @@ class AllureLifecycle @JvmOverloads constructor(
             ?: ""
         val source = UUID.randomUUID().toString() + AllureConstants.ATTACHMENT_FILE_SUFFIX + extension
         val uuid = threadContext.current ?: return source.also {
-            printError("Could not add attachment: no test is running")
+            LOGGER.error("Could not add attachment: no test is running")
         }
         val attachment = Attachment(
             source = source,
@@ -482,6 +485,9 @@ class AllureLifecycle @JvmOverloads constructor(
     }
 
     companion object {
+
+        private val LOGGER: Logger = loggerFor<AllureLifecycle>()
+
         private fun getDefaultWriter(): FileSystemResultsWriter {
             val properties = PropertiesUtils.loadAllureProperties()
             val path = properties.getProperty("allure.results.directory", "allure-results")

@@ -2,13 +2,13 @@ package io.qameta.allure.util
 
 import io.qameta.allure.LabelAnnotation
 import io.qameta.allure.LinkAnnotation
-import io.qameta.allure.listener.printError
 import io.qameta.allure.model.Label
 import io.qameta.allure.model.Link
 import java.lang.reflect.AnnotatedElement
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
 import java.util.*
+import java.util.logging.Logger
 import kotlin.collections.HashSet
 
 /**
@@ -18,6 +18,7 @@ import kotlin.collections.HashSet
  */
 //todo USE SEQUENCE ?
 object AnnotationUtils {
+    private val LOGGER: Logger = loggerFor<AnnotationUtils>()
     private const val VALUE_METHOD_NAME = "value"
     /**
      * Returns links created from Allure meta annotations specified on annotated element.
@@ -146,19 +147,19 @@ object AnnotationUtils {
             val `object` = method.invoke(annotation)
             objectToStringStream(`object`)
         } catch (e: NoSuchMethodException) {
-            printError(
+            LOGGER.error(
                 "Invalid annotation $annotation: marker annotations without value should contains value() method",
                 e
             )
             emptyList()
         } catch (e: IllegalAccessException) {
-            printError(
+            LOGGER.error(
                 "Invalid annotation $annotation: marker annotations without value should contains value() method",
                 e
             )
             emptyList()
         } catch (e: InvocationTargetException) {
-            printError(
+            LOGGER.error(
                 "Invalid annotation $annotation: marker annotations without value should contains value() method",
                 e
             )
@@ -190,13 +191,13 @@ object AnnotationUtils {
                 val method: Method = annotation.annotationType().getMethod(VALUE_METHOD_NAME)
                 (method.invoke(annotation) as Array<Annotation>).toList()
             } catch (e: NoSuchMethodException) {
-                printError("Could not extract repeatable annotation $annotation")
+                LOGGER.error("Could not extract repeatable annotation $annotation")
                 emptyList<Annotation>()
             } catch (e: IllegalAccessException) {
-                printError("Could not extract repeatable annotation $annotation")
+                LOGGER.error("Could not extract repeatable annotation $annotation")
                 emptyList<Annotation>()
             } catch (e: InvocationTargetException) {
-                printError("Could not extract repeatable annotation $annotation")
+                LOGGER.error("Could not extract repeatable annotation $annotation")
                 emptyList<Annotation>()
             }
         } else listOf(annotation)

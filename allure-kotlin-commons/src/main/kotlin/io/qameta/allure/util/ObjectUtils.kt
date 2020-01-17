@@ -1,12 +1,13 @@
 package io.qameta.allure.util
 
-import io.qameta.allure.listener.printError
 import java.util.*
+import java.util.logging.Logger
 
 /**
  * @author charlie (Dmitry Baev).
  */
 object ObjectUtils {
+    private val LOGGER: Logger = loggerFor<ObjectUtils>()
     /**
      * Returns string representation of given object. Pretty prints arrays.
      *
@@ -31,7 +32,7 @@ object ObjectUtils {
             }
             Objects.toString(data)
         } catch (e: Exception) {
-            printError("Could not convert object to string", e)
+            LOGGER.error("Could not convert object to string", e)
             "<NPE>"
         }
     }
