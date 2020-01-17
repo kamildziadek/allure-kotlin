@@ -11,6 +11,9 @@ import java.util.*
 /**
  * The class contains some useful methods to work with [AllureLifecycle].
  */
+//TODO fix nullability of parameters
+//TODO remove method overloads by using default parameters
+//TODO provide appropriate Java integration by adding @JvmStatic annotations
 object Allure {
 
     private const val TXT_EXTENSION = ".txt"
@@ -54,7 +57,7 @@ object Allure {
     fun <T> step(
         name: String? = null,
         runnable: (StepContext) -> T
-    ): T? {
+    ): T {
         return step {
             it.name(name)
             runnable(it)
@@ -67,7 +70,7 @@ object Allure {
      *
      * @param runnable the step's body.
      */
-    fun <T> step(runnable: (StepContext) -> T): T? {
+    fun <T> step(runnable: (StepContext) -> T): T {
         val uuid = UUID.randomUUID().toString()
         lifecycle.startStep(uuid, StepResult().apply {
             name = "step"
@@ -85,7 +88,6 @@ object Allure {
                 }
             }
             ExceptionUtils.sneakyThrow<RuntimeException>(throwable)
-            null
         } finally {
             lifecycle.stopStep(uuid)
         }
