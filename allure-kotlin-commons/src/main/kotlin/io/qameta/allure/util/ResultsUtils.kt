@@ -311,12 +311,12 @@ object ResultsUtils {
         }
 
     private val realThreadName: String
-        get() = String.format(
-            "%s.%s(%s)",
-            ManagementFactory.getRuntimeMXBean().name,
-            Thread.currentThread().name,
-            Thread.currentThread().id
-        )
+        get() {
+            //resolving of bean fails on Android due to NoClassDefFoundError, hence adding additional safety check
+            val bean = runCatching { ManagementFactory.getRuntimeMXBean().name }.getOrNull()?.let { "$it." } ?: ""
+            val currentThread = Thread.currentThread()
+            return "$bean${currentThread.name}(${currentThread.id})"
+        }
 
     private fun getStackTraceAsString(throwable: Throwable): String {
         val stringWriter = StringWriter()
