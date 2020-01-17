@@ -1,17 +1,16 @@
 description = "Allure Kotlin Commons"
 
-//TODO extract constants
 dependencies {
     api(project(":allure-kotlin-model"))
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:${Versions.kontlinxSerialization}")
-    testImplementation("io.github.benas:random-beans:3.8.0")
-    testImplementation("io.github.glytching:junit-extensions:2.3.0")
-    testImplementation("org.assertj:assertj-core:3.11.1")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.2")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.5.2")
-    testImplementation("io.mockk:mockk:1.9.3")
+    testImplementation("io.github.benas:random-beans:${Versions.randomBeans}")
+    testImplementation("io.github.glytching:junit-extensions:${Versions.junitExtensions}")
+    testImplementation("org.assertj:assertj-core:${Versions.assertJ}")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${Versions.junit5}")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:${Versions.junit5}")
+    testImplementation("io.mockk:mockk:${Versions.mockk}")
     testImplementation(project(":allure-kotlin-commons-test"))
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.5.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${Versions.junit5}")
 }
 
 tasks.test {
