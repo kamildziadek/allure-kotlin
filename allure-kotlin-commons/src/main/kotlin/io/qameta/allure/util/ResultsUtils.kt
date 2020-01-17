@@ -295,7 +295,7 @@ object ResultsUtils {
     private fun getLinkUrl(name: String?, type: String?): String? {
         val properties = loadAllureProperties()
         val pattern = properties.getProperty(getLinkTypePatternPropertyName(type))
-        return pattern?.replace("\\{}".toRegex(), name ?: "")
+        return pattern?.replace("{}", name ?: "")
     }
 
     private val realHostName: String?
