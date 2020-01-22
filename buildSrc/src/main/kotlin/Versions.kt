@@ -11,4 +11,12 @@ object Versions {
     const val mockk = "1.9.3"
 
     const val randomBeans = "3.8.0"
+
+    object Android {
+        const val gradlePlugin = "3.5.0"
+        const val compileSdk = 29
+        const val targetSdk = 29
+        const val minSdk = 21
+    }
+
 }

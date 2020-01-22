@@ -1,27 +1,39 @@
-repositories {
-    mavenCentral()
-    jcenter()
-}
-
 plugins {
     java
-    kotlin("jvm") version "1.3.61"
+    kotlin("jvm") version Versions.kotlin
 }
 
-configure(subprojects) {
-    apply {
-        plugin("org.jetbrains.kotlin.jvm")
+buildscript {
+    repositories {
+        mavenCentral()
+        google()
+        jcenter()
     }
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}")
+        classpath("org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}")
+        classpath("org.jetbrains.kotlin:kotlin-android-extensions:${Versions.kotlin}")
+        classpath("com.android.tools.build:gradle:${Versions.Android.gradlePlugin}")
+    }
+}
+
+allprojects {
     group = "io.qameta.allure"
-    version = "1.0-SNAPSHOT"
+    version = "1.0.13-SNAPSHOT"
 
     repositories {
         mavenCentral()
         maven(url = "https://kotlin.bintray.com/kotlinx")
+        google()
+        jcenter()
     }
+}
+
+configure(subprojects.filter { !it.name.contains("android") }) {
+    apply(plugin = "org.jetbrains.kotlin.jvm")
 
     dependencies {
-        implementation(kotlin("stdlib"))
+        implementation(kotlin("stdlib", Versions.kotlin))
     }
 
     configure<JavaPluginConvention> {
