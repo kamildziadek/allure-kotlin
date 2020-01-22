@@ -14,6 +14,7 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}")
         classpath("org.jetbrains.kotlin:kotlin-android-extensions:${Versions.kotlin}")
         classpath("com.android.tools.build:gradle:${Versions.Android.gradlePlugin}")
+        classpath("com.github.dcendents:android-maven-gradle-plugin:${Versions.Android.mavenPlugin}")
     }
 }
 
@@ -29,8 +30,11 @@ allprojects {
     }
 }
 
+val gradleScriptDir by extra("${rootProject.projectDir}/gradle")
+
 configure(subprojects.filter { !it.name.contains("android") }) {
     apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply(from = "$gradleScriptDir/maven-publish.gradle")
 
     dependencies {
         implementation(kotlin("stdlib", Versions.kotlin))

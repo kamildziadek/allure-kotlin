@@ -14,6 +14,8 @@ object Versions {
 
     object Android {
         const val gradlePlugin = "3.5.0"
+        const val mavenPlugin = "2.1"
+
         const val compileSdk = 28
         const val targetSdk = 28
         const val minSdk = 21

@@ -1,7 +1,13 @@
+description = "Allure Kotlin Android Integration"
+
 plugins {
     id("com.android.library")
     id("kotlin-android")
+    id("com.github.dcendents.android-maven")
 }
+
+val gradleScriptDir by extra("${rootProject.projectDir}/gradle")
+apply(from = "$gradleScriptDir/maven-publish.gradle")
 
 android {
     compileSdkVersion(Versions.Android.compileSdk)
