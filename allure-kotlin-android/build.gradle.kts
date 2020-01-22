@@ -29,10 +29,10 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    api(project(":allure-kotlin-junit4"))
     implementation(kotlin("stdlib-jdk7", Versions.kotlin))
-    implementation("androidx.appcompat:appcompat:1.0.2")
-    implementation("androidx.core:core-ktx:1.0.2")
+    implementation("androidx.test.ext:junit:${Versions.Android.Test.junit}")
+    implementation("androidx.test:runner:${Versions.Android.Test.runner}")
     testImplementation("junit:junit:${Versions.junit4}")
-    androidTestImplementation("androidx.test.ext:junit:1.1.0")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.1.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:${Versions.Android.Test.expresso}")
 }
