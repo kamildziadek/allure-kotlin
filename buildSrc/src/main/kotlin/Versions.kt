@@ -18,10 +18,13 @@ object Versions {
         const val targetSdk = 28
         const val minSdk = 21
 
+        const val androidX = "1.1.0"
+
         object Test {
             const val runner = "1.2.0"
             const val junit = "1.1.1"
-            const val expresso = "3.2.0"
+            const val espresso = "3.2.0"
+            const val robolectric = "4.3.1"
         }
     }
 

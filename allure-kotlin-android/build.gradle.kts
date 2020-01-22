@@ -21,10 +21,15 @@ android {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
-        getByName("debug") {
-
-        }
     }
+
+    sourceSets {
+        val sharedTestDir = "src/sharedTest/java"
+        getByName("test").java.srcDir(sharedTestDir)
+        getByName("androidTest").java.srcDir(sharedTestDir)
+    }
+
+    testOptions.unitTests.isIncludeAndroidResources = true
 }
 
 dependencies {
@@ -33,6 +38,14 @@ dependencies {
     implementation(kotlin("stdlib-jdk7", Versions.kotlin))
     implementation("androidx.test.ext:junit:${Versions.Android.Test.junit}")
     implementation("androidx.test:runner:${Versions.Android.Test.runner}")
+
+    debugImplementation("androidx.appcompat:appcompat:${Versions.Android.androidX}")
+    debugImplementation("androidx.core:core-ktx:${Versions.Android.androidX}")
+
+    testImplementation("org.robolectric:robolectric:${Versions.Android.Test.robolectric}")
     testImplementation("junit:junit:${Versions.junit4}")
-    androidTestImplementation("androidx.test.espresso:espresso-core:${Versions.Android.Test.expresso}")
+    testImplementation("androidx.test.espresso:espresso-core:${Versions.Android.Test.espresso}")
+
+    androidTestImplementation("junit:junit:${Versions.junit4}")
+    androidTestImplementation("androidx.test.espresso:espresso-core:${Versions.Android.Test.espresso}")
 }
