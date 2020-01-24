@@ -1,5 +1,6 @@
 package io.qameta.allure.android.extensions
 
+import android.app.UiAutomation
 import android.graphics.Bitmap
 import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
@@ -17,17 +18,18 @@ private const val TAG = "AllureExtensions"
  */
 @Suppress("unused")
 fun Allure.screenshot(name: String? = null, quality: Int = 90): Boolean {
-    val inputStream = takeScreenshot(quality) ?: return false.also {
+    val uiAutomation = InstrumentationRegistry.getInstrumentation().uiAutomation ?: return false.also {
+        Log.e(TAG, "UiAutomation is unavailable. Can't take the screenshot")
+    }
+    val inputStream = uiAutomation.takeScreenshot(quality) ?: return false.also {
         Log.e(TAG, "Failed to take the screenshot")
     }
     addAttachment(name = name, type = "image/png", content = inputStream, fileExtension = ".png")
     return true
 }
 
-private fun takeScreenshot(quality: Int): InputStream? {
-    val screenshot = runCatching { InstrumentationRegistry.getInstrumentation().uiAutomation.takeScreenshot() }
-        .onFailure { Log.e(TAG, "Failed to take a screenshot", it) }
-        .getOrNull() ?: return null
+private fun UiAutomation.takeScreenshot(quality: Int): InputStream? {
+    val screenshot = takeScreenshot() ?: return null
     return ByteArrayOutputStream()
         .apply { screenshot.compress(Bitmap.CompressFormat.PNG, quality, this) }
         .toByteArray()

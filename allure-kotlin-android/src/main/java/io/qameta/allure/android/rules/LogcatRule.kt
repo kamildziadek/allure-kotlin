@@ -2,6 +2,7 @@ package io.qameta.allure.android.rules
 
 import android.app.UiAutomation
 import android.os.ParcelFileDescriptor
+import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import io.qameta.allure.Allure
 import org.junit.rules.*
@@ -25,17 +26,26 @@ class LogcatRule(private val fileName: String = "logcat-dump") : TestRule {
         }
     }
 
-    private val uiAutomation: UiAutomation
+    private val uiAutomation: UiAutomation?
         get() = InstrumentationRegistry.getInstrumentation().uiAutomation
 
     private fun dump() {
+        val uiAutomation = uiAutomation ?: return Unit.also {
+            Log.e(TAG, "UiAutomation is unavailable. Dumping logs failed.")
+        }
         val pfd = uiAutomation.executeShellCommand("logcat -d")
         val inputStream = ParcelFileDescriptor.AutoCloseInputStream(pfd).buffered()
         Allure.addAttachment(name = fileName, type = "text/plain", fileExtension = ".txt", content = inputStream)
     }
 
     private fun clear() {
+        val uiAutomation = uiAutomation ?: return Unit.also {
+            Log.e(TAG, "UiAutomation is unavailable. Clearing logs failed.")
+        }
         uiAutomation.executeShellCommand("logcat -c")
     }
 
+    companion object {
+        private val TAG = LogcatRule::class.java.simpleName
+    }
 }
