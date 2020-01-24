@@ -14,8 +14,6 @@ import org.junit.runner.*
 import org.junit.runner.manipulation.*
 import org.junit.runner.notification.*
 import java.io.File
-import java.nio.file.Path
-import java.nio.file.Paths
 
 //TODO add kdoc
 class AllureAndroidJUnit4(clazz: Class<*>) : Runner(), Filterable, Sortable {
@@ -45,20 +43,15 @@ class AllureAndroidJUnit4(clazz: Class<*>) : Runner(), Filterable, Sortable {
     @SuppressLint("DefaultLocale")
     private fun isDeviceTest() = System.getProperty("java.runtime.name")?.toLowerCase()?.contains("android") ?: false
 
-    private fun resolvePath(): Path {
-        val defaultAllurePath = getDefaultAllurePath()
+    private fun resolvePath(): File {
+        val defaultAllurePath = PropertiesUtils.resultsDirectoryPath
         return when {
             isDeviceTest() -> {
                 requestExternalStoragePermissions()
-                File(Environment.getExternalStorageDirectory(), defaultAllurePath).toPath()
+                File(Environment.getExternalStorageDirectory(), defaultAllurePath)
             }
-            else -> Paths.get(defaultAllurePath)
+            else -> File(defaultAllurePath)
         }
-    }
-
-    private fun getDefaultAllurePath(): String {
-        val properties = PropertiesUtils.loadAllureProperties()
-        return properties.getProperty("allure.results.directory", "allure-results")
     }
 
     private fun requestExternalStoragePermissions() {

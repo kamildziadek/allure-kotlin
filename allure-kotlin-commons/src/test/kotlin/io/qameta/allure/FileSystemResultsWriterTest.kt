@@ -8,7 +8,7 @@ import io.qameta.allure.model.Link
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
-import java.nio.file.Path
+import java.io.File
 import java.util.*
 
 /**
@@ -16,7 +16,7 @@ import java.util.*
  */
 class FileSystemResultsWriterTest {
     @Test
-    fun shouldNotFailIfNoResultsDirectory(@TempDir folder: Path) {
+    fun shouldNotFailIfNoResultsDirectory(@TempDir folder: File) {
         val resolve = folder.resolve("some-directory")
         val writer = FileSystemResultsWriter(resolve)
         val testResult = generateTestResult()
@@ -24,7 +24,7 @@ class FileSystemResultsWriterTest {
     }
 
     @Test
-    fun shouldWriteTestResult(@TempDir folder: Path) {
+    fun shouldWriteTestResult(@TempDir folder: File) {
         val writer = FileSystemResultsWriter(folder)
         val uuid = UUID.randomUUID().toString()
         val testResult = generateTestResult(uuid)
@@ -33,7 +33,7 @@ class FileSystemResultsWriterTest {
         Assertions.assertThat(folder)
             .isDirectory()
         Assertions.assertThat(folder.resolve(fileName))
-            .isRegularFile()
+            .isFile()
     }
 
     private fun generateTestResult(uuid: String = EnhancedRandom.random(String::class.java)): TestResult = TestResult(

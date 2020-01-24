@@ -3,13 +3,12 @@ package io.qameta.allure
 import io.qameta.allure.model.TestResult
 import io.qameta.allure.model.TestResultContainer
 import kotlinx.serialization.json.Json
+import java.io.File
 import java.io.IOException
 import java.io.InputStream
-import java.nio.file.Files
-import java.nio.file.Path
-import java.util.*
+import java.util.UUID
 
-class FileSystemResultsWriter(private val outputDirectory: Path) : AllureResultsWriter {
+class FileSystemResultsWriter(private val outputDirectory: File) : AllureResultsWriter {
     private val mapper: Json = Json.indented
 
     override fun write(testResult: TestResult) {
@@ -18,7 +17,7 @@ class FileSystemResultsWriter(private val outputDirectory: Path) : AllureResults
         val file = outputDirectory.resolve(testResultName)
         try {
             val json = mapper.stringify(TestResult.serializer(), testResult)
-            file.toFile().writeText(json)
+            file.writeText(json)
         } catch (e: IOException) {
             throw AllureResultsWriteException("Could not write Allure test result", e)
         }
@@ -30,7 +29,7 @@ class FileSystemResultsWriter(private val outputDirectory: Path) : AllureResults
         val filePath = outputDirectory.resolve(testResultContainerName)
         try {
             val json = mapper.stringify(TestResultContainer.serializer(), testResultContainer)
-            filePath.toFile().writeText(json)
+            filePath.writeText(json)
         } catch (e: IOException) {
             throw AllureResultsWriteException("Could not write Allure test result container", e)
         }
@@ -40,17 +39,23 @@ class FileSystemResultsWriter(private val outputDirectory: Path) : AllureResults
         createDirectories(outputDirectory)
         val filePath = outputDirectory.resolve(source)
         try {
-            attachment.use { Files.copy(it, filePath) }
+            attachment.use { input ->
+                filePath.outputStream().use { output ->
+                    input.copyTo(output)
+                }
+            }
         } catch (e: IOException) {
             throw AllureResultsWriteException("Could not write Allure attachment", e)
         }
     }
 
-    private fun createDirectories(directory: Path) {
-        try {
-            Files.createDirectories(directory)
-        } catch (e: IOException) {
-            throw AllureResultsWriteException("Could not create Allure results directory", e)
+    private fun createDirectories(directory: File) {
+        val parent = directory.parentFile
+        if (!parent.exists()) {
+            createDirectories(parent)
+        }
+        if (!directory.exists() && !directory.mkdirs()) {
+            throw AllureResultsWriteException("Could not create Allure results directory")
         }
     }
 

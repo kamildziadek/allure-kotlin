@@ -10,9 +10,9 @@ import io.qameta.allure.util.ServiceLoaderUtils
 import io.qameta.allure.util.error
 import io.qameta.allure.util.loggerFor
 import java.io.ByteArrayInputStream
+import java.io.File
 import java.io.InputStream
-import java.nio.file.Paths
-import java.util.*
+import java.util.UUID
 import java.util.logging.Logger
 
 class AllureLifecycle @JvmOverloads constructor(
@@ -489,9 +489,8 @@ class AllureLifecycle @JvmOverloads constructor(
         private val LOGGER: Logger = loggerFor<AllureLifecycle>()
 
         private fun getDefaultWriter(): FileSystemResultsWriter {
-            val properties = PropertiesUtils.loadAllureProperties()
-            val path = properties.getProperty("allure.results.directory", "allure-results")
-            return FileSystemResultsWriter(Paths.get(path))
+            val path = PropertiesUtils.resultsDirectoryPath
+            return FileSystemResultsWriter(File(path))
         }
 
         private fun getDefaultNotifier(): LifecycleNotifier {

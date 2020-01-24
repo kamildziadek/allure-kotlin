@@ -1,7 +1,7 @@
 package io.qameta.allure.util
 
 import java.io.IOException
-import java.util.*
+import java.util.Properties
 import java.util.logging.Logger
 
 /**
@@ -10,6 +10,9 @@ import java.util.logging.Logger
 object PropertiesUtils {
     private const val ALLURE_PROPERTIES_FILE = "allure.properties"
     private val LOGGER: Logger = loggerFor<PropertiesUtils>()
+
+    val resultsDirectoryPath: String
+        get() = loadAllureProperties().getProperty("allure.results.directory", "allure-results")
 
     @JvmStatic
     fun loadAllureProperties(): Properties = Properties().apply {
