@@ -107,7 +107,7 @@ object AnnotationUtils {
                 .flatMap { extractRepeatable(it) }
                 .flatMap { extractMetaAnnotations(annotationType, mapper, it, visited) }
 
-            val current = candidate.annotationType().getAnnotationsByType(annotationType)
+            val current = listOfNotNull(candidate.annotationType().getAnnotation(annotationType))
                 .flatMap { marker -> mapper(marker, candidate) }
             return current + children
         }
