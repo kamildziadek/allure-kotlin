@@ -1,5 +1,6 @@
 package io.qameta.allure
 
+import io.qameta.allure.util.ResultsUtils
 import java.lang.annotation.Inherited
 
 /**
@@ -15,4 +16,5 @@ import java.lang.annotation.Inherited
     AnnotationTarget.ANNOTATION_CLASS,
     AnnotationTarget.CLASS
 )
+@LabelAnnotation(name = ResultsUtils.SEVERITY_LABEL_NAME)
 annotation class Severity(val value: SeverityLevel)
