@@ -1,7 +1,7 @@
-package io.qameta.allure.junit4.samples
+package io.qameta.allure.kotlin.junit4.samples
 
-import io.qameta.allure.junit4.DisplayName
-import io.qameta.allure.junit4.samples.TestBasedOnSampleRunner.SampleRunnerBasedOnNotClasses
+import io.qameta.allure.kotlin.junit4.DisplayName
+import io.qameta.allure.kotlin.junit4.samples.TestBasedOnSampleRunner.SampleRunnerBasedOnNotClasses
 import org.junit.runner.Description
 import org.junit.runner.RunWith
 import org.junit.runner.Runner

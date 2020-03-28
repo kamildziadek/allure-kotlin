@@ -5,10 +5,10 @@ import io.qameta.allure.kotlin.Allure.step
 import io.qameta.allure.kotlin.Description
 import io.qameta.allure.kotlin.Epic
 import io.qameta.allure.kotlin.Feature
-import io.qameta.allure.junit4.AllureParametrizedRunner
-import io.qameta.allure.junit4.AllureRunner
-import io.qameta.allure.junit4.DisplayName
-import io.qameta.allure.junit4.Tag
+import io.qameta.allure.kotlin.junit4.AllureParametrizedRunner
+import io.qameta.allure.kotlin.junit4.AllureRunner
+import io.qameta.allure.kotlin.junit4.DisplayName
+import io.qameta.allure.kotlin.junit4.Tag
 import org.hamcrest.CoreMatchers.*
 import org.junit.*
 import org.junit.Assert.*

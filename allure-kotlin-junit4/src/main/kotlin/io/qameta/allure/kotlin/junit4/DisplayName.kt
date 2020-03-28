@@ -1,5 +1,5 @@
 
-package io.qameta.allure.junit4
+package io.qameta.allure.kotlin.junit4
 
 import java.lang.annotation.Inherited
 

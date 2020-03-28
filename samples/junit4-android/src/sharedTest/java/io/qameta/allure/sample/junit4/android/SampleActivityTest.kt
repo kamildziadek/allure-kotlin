@@ -29,8 +29,8 @@ import io.qameta.allure.android.AllureAndroidJUnit4
 import io.qameta.allure.android.extensions.screenshot
 import io.qameta.allure.android.rules.LogcatRule
 import io.qameta.allure.android.rules.ScreenshotRule
-import io.qameta.allure.junit4.DisplayName
-import io.qameta.allure.junit4.Tag
+import io.qameta.allure.kotlin.junit4.DisplayName
+import io.qameta.allure.kotlin.junit4.Tag
 import org.junit.*
 import org.junit.rules.*
 import org.junit.runner.*

@@ -8,7 +8,7 @@ import androidx.test.runner.permission.PermissionRequester
 import io.qameta.allure.kotlin.Allure
 import io.qameta.allure.kotlin.AllureLifecycle
 import io.qameta.allure.kotlin.FileSystemResultsWriter
-import io.qameta.allure.junit4.AllureJunit4
+import io.qameta.allure.kotlin.junit4.AllureJunit4
 import io.qameta.allure.kotlin.util.PropertiesUtils
 import org.junit.runner.*
 import org.junit.runner.manipulation.*

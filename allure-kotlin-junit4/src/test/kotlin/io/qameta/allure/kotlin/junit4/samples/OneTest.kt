@@ -1,7 +1,7 @@
-package io.qameta.allure.junit4.samples
+package io.qameta.allure.kotlin.junit4.samples
 
 import io.qameta.allure.kotlin.Description
-import io.qameta.allure.junit4.DisplayName
+import io.qameta.allure.kotlin.junit4.DisplayName
 import org.junit.Test
 
 /**

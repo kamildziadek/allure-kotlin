@@ -1,8 +1,4 @@
-
-package io.qameta.allure.junit4
-
-import io.qameta.allure.kotlin.LabelAnnotation
-import io.qameta.allure.kotlin.util.ResultsUtils.TAG_LABEL_NAME
+package io.qameta.allure.kotlin.junit4
 
 @Target(
     AnnotationTarget.ANNOTATION_CLASS,
@@ -13,6 +9,4 @@ import io.qameta.allure.kotlin.util.ResultsUtils.TAG_LABEL_NAME
 )
 @Retention(AnnotationRetention.RUNTIME)
 @MustBeDocumented
-@Repeatable
-@LabelAnnotation(name = TAG_LABEL_NAME)
-annotation class Tag(val value: String)
+annotation class Tags(vararg val value: Tag)

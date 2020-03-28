@@ -1,7 +1,7 @@
-package io.qameta.allure.junit4.samples
+package io.qameta.allure.kotlin.junit4.samples
 
-import io.qameta.allure.junit4.Tag
-import io.qameta.allure.junit4.Tags
+import io.qameta.allure.kotlin.junit4.Tag
+import io.qameta.allure.kotlin.junit4.Tags
 import org.junit.Test
 
 /**

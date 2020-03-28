@@ -1,4 +1,4 @@
-package io.qameta.allure.junit4
+package io.qameta.allure.kotlin.junit4
 
 import org.junit.runner.notification.*
 import org.junit.runners.*

@@ -1,4 +1,4 @@
-package io.qameta.allure.junit4.samples
+package io.qameta.allure.kotlin.junit4.samples
 
 import org.hamcrest.core.Is
 import org.junit.Assume
