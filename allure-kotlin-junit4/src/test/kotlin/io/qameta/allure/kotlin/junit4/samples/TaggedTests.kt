@@ -4,9 +4,6 @@ import io.qameta.allure.kotlin.junit4.Tag
 import io.qameta.allure.kotlin.junit4.Tags
 import org.junit.Test
 
-/**
- * @author jkttt on 05.07.17.
- */
 @Tags(
     Tag(TaggedTests.CLASS_TAG1),
     Tag(TaggedTests.CLASS_TAG2)

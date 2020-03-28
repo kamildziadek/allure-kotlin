@@ -3,9 +3,6 @@ package io.qameta.allure.kotlin.junit4.samples
 import io.qameta.allure.kotlin.Allure.step
 import org.junit.Test
 
-/**
- * @author charlie (Dmitry Baev).
- */
 class TestWithSteps {
     @Test
     fun testWithSteps() {

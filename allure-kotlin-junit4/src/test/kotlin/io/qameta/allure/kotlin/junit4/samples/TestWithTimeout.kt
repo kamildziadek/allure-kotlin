@@ -3,10 +3,6 @@ package io.qameta.allure.kotlin.junit4.samples
 import io.qameta.allure.kotlin.Allure.step
 import org.junit.Test
 
-/**
- * Author: Sergey Potanin
- * Date: 02/02/2018
- */
 class TestWithTimeout {
     @Test(timeout = 100)
     fun testWithSteps() {

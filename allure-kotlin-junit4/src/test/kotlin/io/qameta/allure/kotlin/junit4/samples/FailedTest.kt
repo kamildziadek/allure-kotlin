@@ -4,9 +4,6 @@ import io.qameta.allure.kotlin.*
 import org.assertj.core.api.Assertions
 import org.junit.Test
 
-/**
- * @author charlie (Dmitry Baev).
- */
 class FailedTest {
     @Test
     @Links(

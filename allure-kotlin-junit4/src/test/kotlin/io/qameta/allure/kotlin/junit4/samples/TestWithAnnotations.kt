@@ -3,9 +3,6 @@ package io.qameta.allure.kotlin.junit4.samples
 import io.qameta.allure.kotlin.*
 import org.junit.Test
 
-/**
- * @author charlie (Dmitry Baev).
- */
 class TestWithAnnotations {
     @Test
     @Epics(

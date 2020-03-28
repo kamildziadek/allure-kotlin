@@ -10,9 +10,6 @@ import java.io.InputStream
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArrayList
 
-/**
- * @author Egor Borisov ehborisov@gmail.com
- */
 class AllureResultsWriterStub : AllureResultsWriter, AllureResults {
     private val _testResults: MutableList<TestResult> = CopyOnWriteArrayList()
     private val _testContainers: MutableList<TestResultContainer> = CopyOnWriteArrayList()

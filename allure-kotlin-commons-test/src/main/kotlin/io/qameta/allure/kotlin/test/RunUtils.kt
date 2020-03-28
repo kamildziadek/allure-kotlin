@@ -1,4 +1,3 @@
-
 package io.qameta.allure.kotlin.test
 
 import io.qameta.allure.kotlin.Allure
@@ -8,9 +7,6 @@ import io.qameta.allure.kotlin.util.ResultsUtils.getStatus
 import io.qameta.allure.kotlin.util.ResultsUtils.getStatusDetails
 import java.util.*
 
-/**
- * @author charlie (Dmitry Baev).
- */
 object RunUtils {
     fun runWithinTestContext(runnable: Runnable): AllureResults {
         return runWithinTestContext(runnable, { Allure.lifecycle = it })

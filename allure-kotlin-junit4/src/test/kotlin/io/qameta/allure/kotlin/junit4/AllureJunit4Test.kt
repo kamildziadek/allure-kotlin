@@ -21,7 +21,7 @@ import org.assertj.core.api.iterable.Extractor
 import org.junit.jupiter.api.Test
 import org.junit.runner.JUnitCore
 
-internal class AllureJunit4Test {
+class AllureJunit4Test {
     @Test
     @FullName
     fun shouldSetTestFullName() {
@@ -329,4 +329,4 @@ internal class AllureJunit4Test {
     }
 }
 
-fun <T, R> extractor(extraction: (T) -> R): Extractor<T, R> = Extractor { extraction(it) }
+private fun <T, R> extractor(extraction: (T) -> R): Extractor<T, R> = Extractor { extraction(it) }

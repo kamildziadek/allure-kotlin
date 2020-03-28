@@ -4,9 +4,6 @@ import io.qameta.allure.kotlin.Description
 import io.qameta.allure.kotlin.junit4.DisplayName
 import org.junit.Test
 
-/**
- * @author charlie (Dmitry Baev).
- */
 @DisplayName("Should be overwritten by method annotation")
 class OneTest {
     @Test

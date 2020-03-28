@@ -4,9 +4,6 @@ package io.qameta.allure.kotlin.test
 import io.qameta.allure.kotlin.Feature
 import java.lang.annotation.Inherited
 
-/**
- * @author charlie (Dmitry Baev).
- */
 @Target
 annotation class AllureFeatures {
     @MustBeDocumented
