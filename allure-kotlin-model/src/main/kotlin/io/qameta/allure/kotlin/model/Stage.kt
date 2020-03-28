@@ -1,4 +1,4 @@
-package io.qameta.allure.model
+package io.qameta.allure.kotlin.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

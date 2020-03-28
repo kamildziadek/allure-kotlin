@@ -101,7 +101,7 @@ internal class ResultsUtilsTest {
         url: String?,
         type: String?,
         sysProp: String?,
-        expected: io.qameta.allure.model.Link
+        expected: io.qameta.allure.kotlin.model.Link
     ) {
         setSystemProperty(type, sysProp)
         try {
@@ -141,7 +141,7 @@ internal class ResultsUtilsTest {
             arrayOf(null, "b", null, "d", null, link("b", null, "d"))
         ).map { values -> Arguments { values } }
 
-        private fun link(name: String?, url: String?, type: String?): io.qameta.allure.model.Link =
-            io.qameta.allure.model.Link(name = name, url = url, type = type)
+        private fun link(name: String?, url: String?, type: String?): io.qameta.allure.kotlin.model.Link =
+            io.qameta.allure.kotlin.model.Link(name = name, url = url, type = type)
     }
 }

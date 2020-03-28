@@ -1,6 +1,6 @@
 package io.qameta.allure.listener
 
-import io.qameta.allure.model.TestResultContainer
+import io.qameta.allure.kotlin.model.TestResultContainer
 
 /**
  * Notifies about Allure test container lifecycle.

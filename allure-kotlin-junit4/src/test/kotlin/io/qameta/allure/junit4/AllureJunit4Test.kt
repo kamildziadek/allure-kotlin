@@ -5,10 +5,10 @@ import io.qameta.allure.AllureLifecycle
 import io.qameta.allure.Step
 import io.qameta.allure.junit4.samples.*
 import io.qameta.allure.junit4.samples.IgnoredTests
-import io.qameta.allure.model.Stage
-import io.qameta.allure.model.Status
-import io.qameta.allure.model.StepResult
-import io.qameta.allure.model.TestResult
+import io.qameta.allure.kotlin.model.Stage
+import io.qameta.allure.kotlin.model.Status
+import io.qameta.allure.kotlin.model.StepResult
+import io.qameta.allure.kotlin.model.TestResult
 import io.qameta.allure.test.AllureFeatures
 import io.qameta.allure.test.AllureFeatures.*
 import io.qameta.allure.test.AllureResults

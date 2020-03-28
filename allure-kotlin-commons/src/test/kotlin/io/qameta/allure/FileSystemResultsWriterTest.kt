@@ -2,9 +2,9 @@ package io.qameta.allure
 
 import io.github.benas.randombeans.api.EnhancedRandom
 import io.qameta.allure.FileSystemResultsWriter.Companion.generateTestResultName
-import io.qameta.allure.model.*
-import io.qameta.allure.model.Attachment
-import io.qameta.allure.model.Link
+import io.qameta.allure.kotlin.model.*
+import io.qameta.allure.kotlin.model.Attachment
+import io.qameta.allure.kotlin.model.Link
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir

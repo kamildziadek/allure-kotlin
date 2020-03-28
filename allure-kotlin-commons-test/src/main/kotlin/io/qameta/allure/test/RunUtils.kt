@@ -3,7 +3,7 @@ package io.qameta.allure.test
 
 import io.qameta.allure.Allure
 import io.qameta.allure.AllureLifecycle
-import io.qameta.allure.model.TestResult
+import io.qameta.allure.kotlin.model.TestResult
 import io.qameta.allure.util.ResultsUtils.getStatus
 import io.qameta.allure.util.ResultsUtils.getStatusDetails
 import java.util.*

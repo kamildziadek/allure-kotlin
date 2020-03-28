@@ -1,6 +1,6 @@
 package io.qameta.allure.listener
 
-import io.qameta.allure.model.StepResult
+import io.qameta.allure.kotlin.model.StepResult
 
 /**
  * Notifies about Allure step lifecycle events.

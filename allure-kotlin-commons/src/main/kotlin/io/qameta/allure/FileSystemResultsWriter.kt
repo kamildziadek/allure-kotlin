@@ -1,7 +1,7 @@
 package io.qameta.allure
 
-import io.qameta.allure.model.TestResult
-import io.qameta.allure.model.TestResultContainer
+import io.qameta.allure.kotlin.model.TestResult
+import io.qameta.allure.kotlin.model.TestResultContainer
 import kotlinx.serialization.json.Json
 import java.io.File
 import java.io.IOException

@@ -11,8 +11,8 @@ import io.qameta.allure.Allure.link
 import io.qameta.allure.Allure.parameter
 import io.qameta.allure.Allure.step
 import io.qameta.allure.Allure.tms
-import io.qameta.allure.model.*
-import io.qameta.allure.model.Link
+import io.qameta.allure.kotlin.model.*
+import io.qameta.allure.kotlin.model.Link
 import io.qameta.allure.test.RunUtils.runWithinTestContext
 import io.qameta.allure.test.function
 import io.qameta.allure.util.ObjectUtils

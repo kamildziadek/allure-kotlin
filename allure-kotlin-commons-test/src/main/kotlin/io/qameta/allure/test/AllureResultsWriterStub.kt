@@ -2,8 +2,8 @@
 package io.qameta.allure.test
 
 import io.qameta.allure.AllureResultsWriter
-import io.qameta.allure.model.TestResult
-import io.qameta.allure.model.TestResultContainer
+import io.qameta.allure.kotlin.model.TestResult
+import io.qameta.allure.kotlin.model.TestResultContainer
 import io.qameta.allure.util.toByteArray
 import java.io.IOException
 import java.io.InputStream

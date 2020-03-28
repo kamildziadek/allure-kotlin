@@ -3,9 +3,9 @@ package io.qameta.allure
 import io.qameta.allure.Allure.addAttachment
 import io.qameta.allure.listener.LifecycleNotifier
 import io.qameta.allure.listener.StepLifecycleListener
-import io.qameta.allure.model.Status
-import io.qameta.allure.model.StepResult
-import io.qameta.allure.model.TestResult
+import io.qameta.allure.kotlin.model.Status
+import io.qameta.allure.kotlin.model.StepResult
+import io.qameta.allure.kotlin.model.TestResult
 import io.qameta.allure.test.AllureResults
 import io.qameta.allure.test.AllureResultsWriterStub
 import io.qameta.allure.util.ResultsUtils.getStatus

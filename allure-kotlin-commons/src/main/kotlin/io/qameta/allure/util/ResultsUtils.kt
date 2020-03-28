@@ -1,8 +1,8 @@
 package io.qameta.allure.util
 
 import io.qameta.allure.*
-import io.qameta.allure.model.*
-import io.qameta.allure.model.Link
+import io.qameta.allure.kotlin.model.*
+import io.qameta.allure.kotlin.model.Link
 import io.qameta.allure.util.ObjectUtils.toString
 import io.qameta.allure.util.PropertiesUtils.loadAllureProperties
 import java.io.IOException

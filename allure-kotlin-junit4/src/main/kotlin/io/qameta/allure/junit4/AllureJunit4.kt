@@ -3,7 +3,7 @@ package io.qameta.allure.junit4
 
 import io.qameta.allure.Allure
 import io.qameta.allure.AllureLifecycle
-import io.qameta.allure.model.*
+import io.qameta.allure.kotlin.model.*
 import io.qameta.allure.util.AnnotationUtils
 import io.qameta.allure.util.AnnotationUtils.getLabels
 import io.qameta.allure.util.AnnotationUtils.getLinks

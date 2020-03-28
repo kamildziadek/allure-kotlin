@@ -1,6 +1,6 @@
 package io.qameta.allure.listener
 
-import io.qameta.allure.model.FixtureResult
+import io.qameta.allure.kotlin.model.FixtureResult
 
 /**
  * Notifies about Allure test fixtures lifecycle events.

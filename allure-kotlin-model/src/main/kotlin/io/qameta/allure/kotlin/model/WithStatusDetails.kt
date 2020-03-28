@@ -1,4 +1,4 @@
-package io.qameta.allure.model
+package io.qameta.allure.kotlin.model
 
 interface WithStatusDetails : WithStatus {
     val statusDetails: StatusDetails?

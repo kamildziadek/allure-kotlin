@@ -1,9 +1,9 @@
 package io.qameta.allure.internal
 
-import io.qameta.allure.model.FixtureResult
-import io.qameta.allure.model.StepResult
-import io.qameta.allure.model.TestResult
-import io.qameta.allure.model.TestResultContainer
+import io.qameta.allure.kotlin.model.FixtureResult
+import io.qameta.allure.kotlin.model.StepResult
+import io.qameta.allure.kotlin.model.TestResult
+import io.qameta.allure.kotlin.model.TestResultContainer
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.locks.ReadWriteLock
 import java.util.concurrent.locks.ReentrantReadWriteLock

@@ -3,8 +3,8 @@ package io.qameta.allure
 import io.qameta.allure.internal.AllureStorage
 import io.qameta.allure.internal.AllureThreadContext
 import io.qameta.allure.listener.*
-import io.qameta.allure.model.*
-import io.qameta.allure.model.Attachment
+import io.qameta.allure.kotlin.model.*
+import io.qameta.allure.kotlin.model.Attachment
 import io.qameta.allure.util.PropertiesUtils
 import io.qameta.allure.util.ServiceLoaderUtils
 import io.qameta.allure.util.error

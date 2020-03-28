@@ -2,8 +2,8 @@ package io.qameta.allure.util
 
 import io.qameta.allure.LabelAnnotation
 import io.qameta.allure.LinkAnnotation
-import io.qameta.allure.model.Label
-import io.qameta.allure.model.Link
+import io.qameta.allure.kotlin.model.Label
+import io.qameta.allure.kotlin.model.Link
 import java.lang.reflect.AnnotatedElement
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method

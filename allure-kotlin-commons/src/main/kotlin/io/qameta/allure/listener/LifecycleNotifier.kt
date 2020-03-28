@@ -1,9 +1,9 @@
 package io.qameta.allure.listener
 
-import io.qameta.allure.model.FixtureResult
-import io.qameta.allure.model.StepResult
-import io.qameta.allure.model.TestResult
-import io.qameta.allure.model.TestResultContainer
+import io.qameta.allure.kotlin.model.FixtureResult
+import io.qameta.allure.kotlin.model.StepResult
+import io.qameta.allure.kotlin.model.TestResult
+import io.qameta.allure.kotlin.model.TestResultContainer
 import io.qameta.allure.util.error
 import io.qameta.allure.util.loggerFor
 import java.util.logging.Logger

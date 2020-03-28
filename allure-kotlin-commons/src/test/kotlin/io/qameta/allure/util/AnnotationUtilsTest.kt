@@ -3,8 +3,8 @@ package io.qameta.allure.util
 import io.github.glytching.junit.extension.system.SystemProperties
 import io.github.glytching.junit.extension.system.SystemProperty
 import io.qameta.allure.*
-import io.qameta.allure.model.Label
-import io.qameta.allure.model.Link
+import io.qameta.allure.kotlin.model.Label
+import io.qameta.allure.kotlin.model.Link
 import io.qameta.allure.test.function
 import io.qameta.allure.util.AnnotationUtils.getLabels
 import io.qameta.allure.util.AnnotationUtils.getLinks

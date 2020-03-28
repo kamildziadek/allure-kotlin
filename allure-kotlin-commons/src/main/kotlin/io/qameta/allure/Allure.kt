@@ -1,7 +1,7 @@
 package io.qameta.allure
 
-import io.qameta.allure.model.*
-import io.qameta.allure.model.Link
+import io.qameta.allure.kotlin.model.*
+import io.qameta.allure.kotlin.model.Link
 import io.qameta.allure.util.ExceptionUtils
 import io.qameta.allure.util.ResultsUtils
 import java.io.InputStream
