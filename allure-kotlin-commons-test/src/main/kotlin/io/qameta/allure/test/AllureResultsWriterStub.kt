@@ -1,10 +1,10 @@
 
 package io.qameta.allure.test
 
-import io.qameta.allure.AllureResultsWriter
+import io.qameta.allure.kotlin.AllureResultsWriter
 import io.qameta.allure.kotlin.model.TestResult
 import io.qameta.allure.kotlin.model.TestResultContainer
-import io.qameta.allure.util.toByteArray
+import io.qameta.allure.kotlin.util.toByteArray
 import java.io.IOException
 import java.io.InputStream
 import java.util.concurrent.ConcurrentHashMap

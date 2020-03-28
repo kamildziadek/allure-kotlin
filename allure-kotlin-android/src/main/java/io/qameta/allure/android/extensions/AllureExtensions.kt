@@ -4,7 +4,7 @@ import android.app.UiAutomation
 import android.graphics.Bitmap
 import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
-import io.qameta.allure.Allure
+import io.qameta.allure.kotlin.Allure
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 

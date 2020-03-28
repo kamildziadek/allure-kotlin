@@ -1,6 +1,6 @@
 package io.qameta.allure.junit4.samples
 
-import io.qameta.allure.*
+import io.qameta.allure.kotlin.*
 import org.assertj.core.api.Assertions
 import org.junit.Test
 

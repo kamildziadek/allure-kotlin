@@ -1,6 +1,6 @@
 package io.qameta.allure.android.rules
 
-import io.qameta.allure.Allure
+import io.qameta.allure.kotlin.Allure
 import io.qameta.allure.android.extensions.screenshot
 import org.junit.rules.*
 import org.junit.runner.Description

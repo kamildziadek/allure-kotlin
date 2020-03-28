@@ -1,6 +1,6 @@
 package io.qameta.allure.junit4.samples
 
-import io.qameta.allure.*
+import io.qameta.allure.kotlin.*
 import org.junit.Test
 
 /**
@@ -18,7 +18,11 @@ class TestWithAnnotations {
         Feature("feature2"),
         Feature("feature3")
     )
-    @Stories(Story("story1"), Story("story2"), Story("story3"))
+    @Stories(
+        Story("story1"),
+        Story("story2"),
+        Story("story3")
+    )
     @Owner("some-owner")
     @Throws(Exception::class)
     fun someTest() {

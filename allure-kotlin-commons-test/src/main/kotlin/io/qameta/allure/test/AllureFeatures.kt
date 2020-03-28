@@ -1,7 +1,7 @@
 
 package io.qameta.allure.test
 
-import io.qameta.allure.Feature
+import io.qameta.allure.kotlin.Feature
 import java.lang.annotation.Inherited
 
 /**

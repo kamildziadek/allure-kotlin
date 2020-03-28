@@ -1,6 +1,6 @@
 package io.qameta.allure.junit4.samples
 
-import io.qameta.allure.Allure.step
+import io.qameta.allure.kotlin.Allure.step
 import org.junit.Test
 
 /**

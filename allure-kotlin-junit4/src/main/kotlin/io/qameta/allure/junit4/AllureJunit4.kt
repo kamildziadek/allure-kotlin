@@ -1,24 +1,24 @@
 
 package io.qameta.allure.junit4
 
-import io.qameta.allure.Allure
-import io.qameta.allure.AllureLifecycle
+import io.qameta.allure.kotlin.Allure
+import io.qameta.allure.kotlin.AllureLifecycle
 import io.qameta.allure.kotlin.model.*
-import io.qameta.allure.util.AnnotationUtils
-import io.qameta.allure.util.AnnotationUtils.getLabels
-import io.qameta.allure.util.AnnotationUtils.getLinks
-import io.qameta.allure.util.ResultsUtils
-import io.qameta.allure.util.ResultsUtils.createFrameworkLabel
-import io.qameta.allure.util.ResultsUtils.createHostLabel
-import io.qameta.allure.util.ResultsUtils.createLanguageLabel
-import io.qameta.allure.util.ResultsUtils.createPackageLabel
-import io.qameta.allure.util.ResultsUtils.createSuiteLabel
-import io.qameta.allure.util.ResultsUtils.createTestClassLabel
-import io.qameta.allure.util.ResultsUtils.createTestMethodLabel
-import io.qameta.allure.util.ResultsUtils.createThreadLabel
-import io.qameta.allure.util.ResultsUtils.getStatus
-import io.qameta.allure.util.ResultsUtils.getStatusDetails
-import io.qameta.allure.util.ResultsUtils.md5
+import io.qameta.allure.kotlin.util.AnnotationUtils
+import io.qameta.allure.kotlin.util.AnnotationUtils.getLabels
+import io.qameta.allure.kotlin.util.AnnotationUtils.getLinks
+import io.qameta.allure.kotlin.util.ResultsUtils
+import io.qameta.allure.kotlin.util.ResultsUtils.createFrameworkLabel
+import io.qameta.allure.kotlin.util.ResultsUtils.createHostLabel
+import io.qameta.allure.kotlin.util.ResultsUtils.createLanguageLabel
+import io.qameta.allure.kotlin.util.ResultsUtils.createPackageLabel
+import io.qameta.allure.kotlin.util.ResultsUtils.createSuiteLabel
+import io.qameta.allure.kotlin.util.ResultsUtils.createTestClassLabel
+import io.qameta.allure.kotlin.util.ResultsUtils.createTestMethodLabel
+import io.qameta.allure.kotlin.util.ResultsUtils.createThreadLabel
+import io.qameta.allure.kotlin.util.ResultsUtils.getStatus
+import io.qameta.allure.kotlin.util.ResultsUtils.getStatusDetails
+import io.qameta.allure.kotlin.util.ResultsUtils.md5
 import org.junit.Ignore
 import org.junit.runner.Description
 import org.junit.runner.Result
@@ -100,7 +100,7 @@ class AllureJunit4 @JvmOverloads constructor(val lifecycle: AllureLifecycle = Al
     }
 
     private fun getDescription(result: Description): String? {
-        return result.getAnnotation(io.qameta.allure.Description::class.java)?.value
+        return result.getAnnotation(io.qameta.allure.kotlin.Description::class.java)?.value
     }
 
     private fun extractLinks(description: Description): List<Link> {

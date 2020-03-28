@@ -4,7 +4,7 @@ import android.app.UiAutomation
 import android.os.ParcelFileDescriptor
 import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
-import io.qameta.allure.Allure
+import io.qameta.allure.kotlin.Allure
 import org.junit.rules.*
 import org.junit.runner.*
 import org.junit.runners.model.*

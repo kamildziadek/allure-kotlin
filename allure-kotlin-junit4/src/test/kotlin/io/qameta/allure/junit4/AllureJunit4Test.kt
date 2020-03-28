@@ -1,8 +1,8 @@
 package io.qameta.allure.junit4
 
-import io.qameta.allure.Allure
-import io.qameta.allure.AllureLifecycle
-import io.qameta.allure.Step
+import io.qameta.allure.kotlin.Allure
+import io.qameta.allure.kotlin.AllureLifecycle
+import io.qameta.allure.kotlin.Step
 import io.qameta.allure.junit4.samples.*
 import io.qameta.allure.junit4.samples.IgnoredTests
 import io.qameta.allure.kotlin.model.Stage
@@ -14,8 +14,8 @@ import io.qameta.allure.test.AllureFeatures.*
 import io.qameta.allure.test.AllureResults
 import io.qameta.allure.test.AllureResultsWriterStub
 import io.qameta.allure.test.function
-import io.qameta.allure.util.ResultsUtils.HOST_LABEL_NAME
-import io.qameta.allure.util.ResultsUtils.THREAD_LABEL_NAME
+import io.qameta.allure.kotlin.util.ResultsUtils.HOST_LABEL_NAME
+import io.qameta.allure.kotlin.util.ResultsUtils.THREAD_LABEL_NAME
 import org.assertj.core.api.Assertions
 import org.assertj.core.api.iterable.Extractor
 import org.junit.jupiter.api.Test

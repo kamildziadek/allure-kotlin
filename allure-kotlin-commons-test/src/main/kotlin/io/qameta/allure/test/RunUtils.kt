@@ -1,11 +1,11 @@
 
 package io.qameta.allure.test
 
-import io.qameta.allure.Allure
-import io.qameta.allure.AllureLifecycle
+import io.qameta.allure.kotlin.Allure
+import io.qameta.allure.kotlin.AllureLifecycle
 import io.qameta.allure.kotlin.model.TestResult
-import io.qameta.allure.util.ResultsUtils.getStatus
-import io.qameta.allure.util.ResultsUtils.getStatusDetails
+import io.qameta.allure.kotlin.util.ResultsUtils.getStatus
+import io.qameta.allure.kotlin.util.ResultsUtils.getStatusDetails
 import java.util.*
 
 /**

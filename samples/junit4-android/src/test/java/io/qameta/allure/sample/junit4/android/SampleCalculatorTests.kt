@@ -1,10 +1,10 @@
 package io.qameta.allure.sample.junit4.android
 
-import io.qameta.allure.Allure.parameter
-import io.qameta.allure.Allure.step
-import io.qameta.allure.Description
-import io.qameta.allure.Epic
-import io.qameta.allure.Feature
+import io.qameta.allure.kotlin.Allure.parameter
+import io.qameta.allure.kotlin.Allure.step
+import io.qameta.allure.kotlin.Description
+import io.qameta.allure.kotlin.Epic
+import io.qameta.allure.kotlin.Feature
 import io.qameta.allure.junit4.AllureParametrizedRunner
 import io.qameta.allure.junit4.AllureRunner
 import io.qameta.allure.junit4.DisplayName

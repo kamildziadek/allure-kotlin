@@ -1,8 +1,8 @@
 
 package io.qameta.allure.junit4
 
-import io.qameta.allure.LabelAnnotation
-import io.qameta.allure.util.ResultsUtils.TAG_LABEL_NAME
+import io.qameta.allure.kotlin.LabelAnnotation
+import io.qameta.allure.kotlin.util.ResultsUtils.TAG_LABEL_NAME
 
 @Target(
     AnnotationTarget.ANNOTATION_CLASS,

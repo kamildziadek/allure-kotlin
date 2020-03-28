@@ -5,11 +5,11 @@ import android.os.Build
 import android.os.Environment
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.runner.permission.PermissionRequester
-import io.qameta.allure.Allure
-import io.qameta.allure.AllureLifecycle
-import io.qameta.allure.FileSystemResultsWriter
+import io.qameta.allure.kotlin.Allure
+import io.qameta.allure.kotlin.AllureLifecycle
+import io.qameta.allure.kotlin.FileSystemResultsWriter
 import io.qameta.allure.junit4.AllureJunit4
-import io.qameta.allure.util.PropertiesUtils
+import io.qameta.allure.kotlin.util.PropertiesUtils
 import org.junit.runner.*
 import org.junit.runner.manipulation.*
 import org.junit.runner.notification.*
