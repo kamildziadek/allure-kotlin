@@ -16,7 +16,6 @@ import kotlin.collections.HashSet
  * test cases via reflection.
  *
  */
-//todo USE SEQUENCE ?
 object AnnotationUtils {
     private val LOGGER: Logger = loggerFor<AnnotationUtils>()
     private const val VALUE_METHOD_NAME = "value"
@@ -26,16 +25,18 @@ object AnnotationUtils {
      * @param annotatedElement the element to search annotations on.
      * @return discovered links.
      */
+    @JvmStatic
     fun getLinks(annotatedElement: AnnotatedElement): Set<Link> {
         return getLinks(*annotatedElement.declaredAnnotations)
     }
 
     /**
-     * Shortcut for [.getLinks].
+     * Shortcut for [getLinks].
      *
      * @param annotations annotations to analyse.
      * @return discovered links.
      */
+    @JvmStatic
     fun getLinks(vararg annotations: Annotation): Set<Link> {
         return getLinks(annotations.toList())
     }
@@ -47,27 +48,28 @@ object AnnotationUtils {
      * @return discovered links.
      */
     @JvmStatic
-    fun getLinks(annotations: Collection<Annotation>): Set<Link> {
-        return extractMetaAnnotations(LinkAnnotation::class.java, ::extractLinks, annotations).toSet()
-    }
+    fun getLinks(annotations: Collection<Annotation>): Set<Link> =
+        extractMetaAnnotations(LinkAnnotation::class.java, ::extractLinks, annotations).toSet()
 
     /**
      * Returns labels created from Allure meta annotations specified on annotated element.
-     * Shortcut for [.getLinks]
+     * Shortcut for [getLinks]
      *
      * @param annotatedElement the element to search annotations on.
      * @return discovered labels.
      */
+    @JvmStatic
     fun getLabels(annotatedElement: AnnotatedElement): Set<Label> {
         return getLabels(*annotatedElement.declaredAnnotations)
     }
 
     /**
-     * Shortcut for [.getLabels].
+     * Shortcut for [getLabels].
      *
      * @param annotations annotations to analyse.
      * @return discovered labels.
      */
+    @JvmStatic
     fun getLabels(vararg annotations: Annotation): Set<Label> {
         return getLabels(annotations.toList())
     }
@@ -79,9 +81,8 @@ object AnnotationUtils {
      * @return discovered labels.
      */
     @JvmStatic
-    fun getLabels(annotations: Collection<Annotation>): Set<Label> {
-        return extractMetaAnnotations(LabelAnnotation::class.java, ::extractLabels, annotations).toSet()
-    }
+    fun getLabels(annotations: Collection<Annotation>): Set<Label> =
+        extractMetaAnnotations(LabelAnnotation::class.java, ::extractLabels, annotations).toSet()
 
     private fun <Result, AnnotationClazz : Annotation> extractMetaAnnotations(
         annotationType: Class<AnnotationClazz>,
@@ -114,31 +115,26 @@ object AnnotationUtils {
         return emptyList()
     }
 
-    private fun extractLabels(m: LabelAnnotation, annotation: Annotation): List<Label> {
-        return if (m.value == LabelAnnotation.DEFAULT_VALUE) {
-            callValueMethod(annotation)
-                .map { ResultsUtils.createLabel(m.name, it) }
-        } else listOf(ResultsUtils.createLabel(m.name, m.value))
-    }
+    private fun extractLabels(m: LabelAnnotation, annotation: Annotation): List<Label> =
+        when (m.value) {
+            LabelAnnotation.DEFAULT_VALUE ->
+                callValueMethod(annotation).map { ResultsUtils.createLabel(m.name, it) }
+            else -> listOf(ResultsUtils.createLabel(m.name, m.value))
+        }
 
     private fun extractLinks(
         m: LinkAnnotation,
         annotation: Annotation
-    ): List<Link> { // this is required as Link annotation uses name attribute as value alias.
+    ): List<Link> {
+        // this is required as Link annotation uses name attribute as value alias.
         if (annotation is io.qameta.allure.kotlin.Link) {
             return listOf(ResultsUtils.createLink(annotation))
         }
-        return if (m.value == LinkAnnotation.DEFAULT_VALUE) {
-            callValueMethod(annotation)
-                .map { value ->
-                    ResultsUtils.createLink(
-                        value,
-                        null,
-                        m.url,
-                        m.type
-                    )
-                }
-        } else listOf(ResultsUtils.createLink(m.value, null, m.url, m.type))
+        return when (m.value) {
+            LinkAnnotation.DEFAULT_VALUE ->
+                callValueMethod(annotation).map { ResultsUtils.createLink(it, null, m.url, m.type) }
+            else -> listOf(ResultsUtils.createLink(m.value, null, m.url, m.type))
+        }
     }
 
     private fun callValueMethod(annotation: Annotation): List<String> {
@@ -229,6 +225,5 @@ object AnnotationUtils {
     }
 }
 
-//todo use Kotlin annotationClass?
-fun <T : Annotation> T.annotationType(): Class<out T> =
+private fun <T : Annotation> T.annotationType(): Class<out T> =
     (this as java.lang.annotation.Annotation).annotationType() as Class<out T>

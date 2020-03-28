@@ -137,10 +137,10 @@ class LifecycleNotifier(
         stepListeners.runSafely { it.afterStepStop(result) }
     }
 
-    private fun <T : LifecycleListener?> List<T>.runSafely(method: (T) -> Unit) {
+    private fun <T : LifecycleListener> List<T>.runSafely(method: (T) -> Unit) {
         forEach { listener ->
             try {
-                method.invoke(listener)
+                method(listener)
             } catch (e: Exception) {
                 LOGGER.error("Could not invoke listener method", e)
             }
