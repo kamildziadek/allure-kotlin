@@ -9,11 +9,11 @@ import io.qameta.allure.kotlin.model.Stage
 import io.qameta.allure.kotlin.model.Status
 import io.qameta.allure.kotlin.model.StepResult
 import io.qameta.allure.kotlin.model.TestResult
-import io.qameta.allure.test.AllureFeatures
-import io.qameta.allure.test.AllureFeatures.*
-import io.qameta.allure.test.AllureResults
-import io.qameta.allure.test.AllureResultsWriterStub
-import io.qameta.allure.test.function
+import io.qameta.allure.kotlin.test.AllureFeatures
+import io.qameta.allure.kotlin.test.AllureFeatures.*
+import io.qameta.allure.kotlin.test.AllureResults
+import io.qameta.allure.kotlin.test.AllureResultsWriterStub
+import io.qameta.allure.kotlin.test.function
 import io.qameta.allure.kotlin.util.ResultsUtils.HOST_LABEL_NAME
 import io.qameta.allure.kotlin.util.ResultsUtils.THREAD_LABEL_NAME
 import org.assertj.core.api.Assertions

@@ -5,7 +5,7 @@ import io.github.glytching.junit.extension.system.SystemProperty
 import io.qameta.allure.kotlin.*
 import io.qameta.allure.kotlin.model.Label
 import io.qameta.allure.kotlin.model.Link
-import io.qameta.allure.test.function
+import io.qameta.allure.kotlin.test.function
 import io.qameta.allure.kotlin.util.AnnotationUtils.getLabels
 import io.qameta.allure.kotlin.util.AnnotationUtils.getLinks
 import io.qameta.allure.kotlin.util.AnnotationUtilsTest.Features.FeatureA.Story1

@@ -6,8 +6,8 @@ import io.qameta.allure.kotlin.listener.StepLifecycleListener
 import io.qameta.allure.kotlin.model.Status
 import io.qameta.allure.kotlin.model.StepResult
 import io.qameta.allure.kotlin.model.TestResult
-import io.qameta.allure.test.AllureResults
-import io.qameta.allure.test.AllureResultsWriterStub
+import io.qameta.allure.kotlin.test.AllureResults
+import io.qameta.allure.kotlin.test.AllureResultsWriterStub
 import io.qameta.allure.kotlin.util.ResultsUtils.getStatus
 import io.qameta.allure.kotlin.util.ResultsUtils.getStatusDetails
 import org.assertj.core.api.Assertions.assertThat

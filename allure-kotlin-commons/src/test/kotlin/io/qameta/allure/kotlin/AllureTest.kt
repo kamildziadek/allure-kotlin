@@ -13,8 +13,8 @@ import io.qameta.allure.kotlin.Allure.step
 import io.qameta.allure.kotlin.Allure.tms
 import io.qameta.allure.kotlin.model.*
 import io.qameta.allure.kotlin.model.Link
-import io.qameta.allure.test.RunUtils.runWithinTestContext
-import io.qameta.allure.test.function
+import io.qameta.allure.kotlin.test.RunUtils.runWithinTestContext
+import io.qameta.allure.kotlin.test.function
 import io.qameta.allure.kotlin.util.ObjectUtils
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test

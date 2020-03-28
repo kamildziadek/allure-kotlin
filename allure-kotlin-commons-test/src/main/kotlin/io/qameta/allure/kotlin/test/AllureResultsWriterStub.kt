@@ -1,5 +1,5 @@
 
-package io.qameta.allure.test
+package io.qameta.allure.kotlin.test
 
 import io.qameta.allure.kotlin.AllureResultsWriter
 import io.qameta.allure.kotlin.model.TestResult
