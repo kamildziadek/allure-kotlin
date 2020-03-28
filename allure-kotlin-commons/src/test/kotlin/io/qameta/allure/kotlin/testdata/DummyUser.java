@@ -2,9 +2,6 @@ package io.qameta.allure.kotlin.testdata;
 
 import java.util.Arrays;
 
-/**
- * @author sskorol (Sergey Korol)
- */
 public class DummyUser {
 
     private final DummyEmail[] emails;

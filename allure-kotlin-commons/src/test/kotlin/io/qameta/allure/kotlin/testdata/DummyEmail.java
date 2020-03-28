@@ -2,9 +2,6 @@ package io.qameta.allure.kotlin.testdata;
 
 import java.util.List;
 
-/**
- * @author sskorol (Sergey Korol)
- */
 public class DummyEmail {
 
     private final String address;

@@ -15,10 +15,7 @@ import org.junit.jupiter.api.Test
 import java.util.*
 import java.util.concurrent.atomic.AtomicInteger
 
-/**
- * @author charlie (Dmitry Baev).
- */
-internal class StepLifecycleListenerTest {
+class StepLifecycleListenerTest {
     @Test
     fun shouldExecuteBeforeStepStart() {
         val executionCount = AtomicInteger()

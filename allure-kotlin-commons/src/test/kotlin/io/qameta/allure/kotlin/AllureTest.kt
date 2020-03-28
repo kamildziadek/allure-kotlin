@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test
 
 class AllureTest {
 
-    fun setLifecycle(lifecycle: AllureLifecycle) {
+    private fun setLifecycle(lifecycle: AllureLifecycle) {
         Allure.lifecycle = lifecycle
     }
 

@@ -16,9 +16,6 @@ import java.util.*
 import java.util.concurrent.Callable
 import java.util.concurrent.Executors
 
-/**
- * @author charlie (Dmitry Baev).
- */
 class AllureLifecycleTest {
     private lateinit var writer: AllureResultsWriter
     private lateinit var lifecycle: AllureLifecycle

@@ -20,10 +20,7 @@ import org.junit.jupiter.api.parallel.ResourceAccessMode
 import org.junit.jupiter.api.parallel.ResourceLock
 import org.junit.jupiter.api.parallel.Resources
 
-/**
- * @author charlie (Dmitry Baev).
- */
-internal class AnnotationUtilsTest {
+class AnnotationUtilsTest {
     @Epic("e1")
     @Feature("f1")
     @Story("s1")

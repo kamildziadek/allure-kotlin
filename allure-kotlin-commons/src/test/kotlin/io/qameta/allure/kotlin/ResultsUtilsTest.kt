@@ -15,11 +15,8 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 
-/**
- * @author charlie (Dmitry Baev).
- */
 @ExtendWith(SystemPropertyExtension::class)
-internal class ResultsUtilsTest {
+class ResultsUtilsTest {
     @Test
     fun shouldCreateLink() {
         val actual = createLink("a", "b", "c", "d")

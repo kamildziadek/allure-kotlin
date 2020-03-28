@@ -12,7 +12,7 @@ import io.qameta.allure.kotlin.util.loggerFor
 import java.io.ByteArrayInputStream
 import java.io.File
 import java.io.InputStream
-import java.util.UUID
+import java.util.*
 import java.util.logging.Logger
 
 class AllureLifecycle @JvmOverloads constructor(
@@ -145,7 +145,7 @@ class AllureLifecycle @JvmOverloads constructor(
     }
 
     /**
-     * Updates current running fixture. Shortcut for [.updateFixture].
+     * Updates current running fixture. Shortcut for [updateFixture].
      *
      * @param updateBlock the update function.
      */
@@ -160,7 +160,7 @@ class AllureLifecycle @JvmOverloads constructor(
      * Updates fixture by given uuid.
      *
      * @param uuid   the uuid of fixture.
-     * @param update the update function.
+     * @param updateBlock the update function.
      */
     fun updateFixture(uuid: String, updateBlock: (FixtureResult) -> Unit) {
         val fixture = storage.getFixture(uuid) ?: return Unit.also {
@@ -269,7 +269,7 @@ class AllureLifecycle @JvmOverloads constructor(
     }
 
     /**
-     * Shortcut for [.updateTestCase] for current running test case uuid.
+     * Shortcut for [updateTestCase] for current running test case uuid.
      *
      * @param update the update function.
      */
@@ -425,15 +425,20 @@ class AllureLifecycle @JvmOverloads constructor(
 
     /**
      * Adds attachment into current test or step if any exists. Shortcut
-     * for [.addAttachment]
+     * for [addAttachment]
      *
      * @param name          the name of attachment
      * @param type          the content type of attachment
      * @param fileExtension the attachment file extension
      * @param body          attachment content
      */
-    fun addAttachment(name: String?, type: String?, fileExtension: String?, body: ByteArray) {
-        addAttachment(name, type, fileExtension, ByteArrayInputStream(body))
+    fun addAttachment(name: String, body: ByteArray, type: String?, fileExtension: String?) {
+        addAttachment(
+            name = name,
+            stream = ByteArrayInputStream(body),
+            type = type,
+            fileExtension = fileExtension
+        )
     }
 
     /**
@@ -444,12 +449,19 @@ class AllureLifecycle @JvmOverloads constructor(
      * @param fileExtension the attachment file extension
      * @param stream        attachment content
      */
-    fun addAttachment(name: String?, type: String?, fileExtension: String?, stream: InputStream) {
-        writeAttachment(prepareAttachment(name, type, fileExtension), stream)
+    fun addAttachment(name: String, stream: InputStream, type: String?, fileExtension: String?) {
+        writeAttachment(
+            attachmentSource = prepareAttachment(
+                name = name,
+                type = type,
+                fileExtension = fileExtension
+            ),
+            stream = stream
+        )
     }
 
     fun prepareAttachment(
-        name: String?,
+        name: String,
         type: String?,
         fileExtension: String?
     ): String {
@@ -457,13 +469,14 @@ class AllureLifecycle @JvmOverloads constructor(
             ?.takeIf { it.isNotEmpty() }
             ?.let { if (it[0] == '.') it else ".$it" }
             ?: ""
-        val source = UUID.randomUUID().toString() + AllureConstants.ATTACHMENT_FILE_SUFFIX + extension
+        val source =
+            UUID.randomUUID().toString() + AllureConstants.ATTACHMENT_FILE_SUFFIX + extension
         val uuid = threadContext.current ?: return source.also {
             LOGGER.error("Could not add attachment: no test is running")
         }
         val attachment = Attachment(
             source = source,
-            name = name?.takeIf { it.isNotEmpty() },
+            name = name.takeIf { it.isNotEmpty() },
             type = type?.takeIf { it.isNotEmpty() }
         )
         storage.get<WithAttachments>(uuid)?.let {

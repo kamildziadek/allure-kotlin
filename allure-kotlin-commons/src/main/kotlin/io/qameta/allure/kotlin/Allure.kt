@@ -233,9 +233,9 @@ object Allure {
     ) {
         lifecycle.addAttachment(
             name = name,
+            body = content.toByteArray(StandardCharsets.UTF_8),
             type = type,
-            fileExtension = fileExtension,
-            body = content.toByteArray(StandardCharsets.UTF_8)
+            fileExtension = fileExtension
         )
     }
 
@@ -257,9 +257,9 @@ object Allure {
     ) {
         lifecycle.addAttachment(
             name = name,
+            stream = content,
             type = type,
-            fileExtension = fileExtension,
-            stream = content
+            fileExtension = fileExtension
         )
     }
 

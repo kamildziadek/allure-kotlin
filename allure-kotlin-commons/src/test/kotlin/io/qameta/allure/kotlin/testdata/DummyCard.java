@@ -1,8 +1,5 @@
 package io.qameta.allure.kotlin.testdata;
 
-/**
- * @author sskorol (Sergey Korol)
- */
 public class DummyCard {
 
     private final String number;

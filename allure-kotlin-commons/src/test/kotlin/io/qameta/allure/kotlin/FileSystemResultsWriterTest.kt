@@ -11,9 +11,6 @@ import org.junit.jupiter.api.io.TempDir
 import java.io.File
 import java.util.*
 
-/**
- * @author charlie (Dmitry Baev).
- */
 class FileSystemResultsWriterTest {
     @Test
     fun shouldNotFailIfNoResultsDirectory(@TempDir folder: File) {
