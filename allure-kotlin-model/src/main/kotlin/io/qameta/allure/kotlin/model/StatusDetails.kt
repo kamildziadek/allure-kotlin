@@ -7,9 +7,9 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class StatusDetails(
-    var known: Boolean? = null,
-    var muted: Boolean? = null,
-    var flaky: Boolean? = null,
+    var known: Boolean = false,
+    var muted: Boolean = false,
+    var flaky: Boolean = false,
     var message: String? = null,
     var trace: String? = null
 )

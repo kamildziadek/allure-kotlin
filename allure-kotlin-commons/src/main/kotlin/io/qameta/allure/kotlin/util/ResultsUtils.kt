@@ -24,12 +24,15 @@ import java.util.logging.Logger
 object ResultsUtils {
 
     private val LOGGER: Logger = loggerFor<ResultsUtils>()
+    private const val ALLURE_DESCRIPTIONS_PACKAGE = "allureDescriptions/"
+    private const val MD_5 = "MD5"
 
     const val ALLURE_HOST_NAME_SYSPROP = "allure.hostName"
-    const val ALLURE_HOST_NAME_ENV = "ALLURE_HOST_NAME"
     const val ALLURE_THREAD_NAME_SYSPROP = "allure.threadName"
-    const val ALLURE_THREAD_NAME_ENV = "ALLURE_THREAD_NAME"
     const val ALLURE_SEPARATE_LINES_SYSPROP = "allure.description.javadoc.separateLines"
+
+    const val ALLURE_HOST_NAME_ENV = "ALLURE_HOST_NAME"
+    const val ALLURE_THREAD_NAME_ENV = "ALLURE_THREAD_NAME"
 
     const val ISSUE_LINK_TYPE = "issue"
     const val TMS_LINK_TYPE = "tms"
@@ -54,164 +57,183 @@ object ResultsUtils {
     const val FRAMEWORK_LABEL_NAME = "framework"
     const val LANGUAGE_LABEL_NAME = "language"
 
-    private const val ALLURE_DESCRIPTIONS_PACKAGE = "allureDescriptions/"
-    private const val MD_5 = "MD5"
     private var cachedHost: String? = null
+
+    @JvmStatic
     fun createParameter(name: String, value: Any?): Parameter {
         return Parameter(name = name, value = toString(value))
     }
 
-    fun createSuiteLabel(suite: String?): Label {
+    @JvmStatic
+    fun createSuiteLabel(suite: String): Label {
         return createLabel(SUITE_LABEL_NAME, suite)
     }
 
-    fun createParentSuiteLabel(suite: String?): Label {
+    @JvmStatic
+    fun createParentSuiteLabel(suite: String): Label {
         return createLabel(PARENT_SUITE_LABEL_NAME, suite)
     }
 
-    fun createSubSuiteLabel(suite: String?): Label {
+    @JvmStatic
+    fun createSubSuiteLabel(suite: String): Label {
         return createLabel(SUB_SUITE_LABEL_NAME, suite)
     }
 
-    fun createTestMethodLabel(testMethod: String?): Label {
+    @JvmStatic
+    fun createTestMethodLabel(testMethod: String): Label {
         return createLabel(TEST_METHOD_LABEL_NAME, testMethod)
     }
 
-    fun createTestClassLabel(testClass: String?): Label {
+    @JvmStatic
+    fun createTestClassLabel(testClass: String): Label {
         return createLabel(TEST_CLASS_LABEL_NAME, testClass)
     }
 
-    fun createPackageLabel(packageName: String?): Label {
+    @JvmStatic
+    fun createPackageLabel(packageName: String): Label {
         return createLabel(PACKAGE_LABEL_NAME, packageName)
     }
 
-    fun createEpicLabel(epic: String?): Label {
+    @JvmStatic
+    fun createEpicLabel(epic: String): Label {
         return createLabel(EPIC_LABEL_NAME, epic)
     }
 
-    fun createFeatureLabel(feature: String?): Label {
+    @JvmStatic
+    fun createFeatureLabel(feature: String): Label {
         return createLabel(FEATURE_LABEL_NAME, feature)
     }
 
-    fun createStoryLabel(story: String?): Label {
+    @JvmStatic
+    fun createStoryLabel(story: String): Label {
         return createLabel(STORY_LABEL_NAME, story)
     }
 
-    fun createTagLabel(tag: String?): Label {
+    @JvmStatic
+    fun createTagLabel(tag: String): Label {
         return createLabel(TAG_LABEL_NAME, tag)
     }
 
-    fun createOwnerLabel(owner: String?): Label {
+    @JvmStatic
+    fun createOwnerLabel(owner: String): Label {
         return createLabel(OWNER_LABEL_NAME, owner)
     }
 
+    @JvmStatic
     fun createSeverityLabel(severity: SeverityLevel): Label {
         return createSeverityLabel(severity.value)
     }
 
-    fun createSeverityLabel(severity: String?): Label {
+    @JvmStatic
+    fun createSeverityLabel(severity: String): Label {
         return createLabel(SEVERITY_LABEL_NAME, severity)
     }
 
+    @JvmStatic
     fun createHostLabel(): Label {
-        return createLabel(
-            HOST_LABEL_NAME,
-            hostName
-        )
+        return createLabel(HOST_LABEL_NAME, hostName)
     }
 
+    @JvmStatic
     fun createThreadLabel(): Label {
-        return createLabel(
-            THREAD_LABEL_NAME,
-            threadName
-        )
+        return createLabel(THREAD_LABEL_NAME, threadName)
     }
 
-    fun createFrameworkLabel(framework: String?): Label {
+    @JvmStatic
+    fun createFrameworkLabel(framework: String): Label {
         return createLabel(FRAMEWORK_LABEL_NAME, framework)
     }
 
-    fun createLanguageLabel(language: String?): Label {
+    @JvmStatic
+    fun createLanguageLabel(language: String): Label {
         return createLabel(LANGUAGE_LABEL_NAME, language)
     }
 
-    fun createLabel(name: String, value: String?): Label {
+    @JvmStatic
+    fun createLabel(name: String, value: String): Label {
         return Label(name = name, value = value)
     }
 
+    @JvmStatic
     fun createLabel(owner: Owner): Label {
         return createOwnerLabel(owner.value)
     }
 
+    @JvmStatic
     fun createLabel(severity: Severity): Label {
         return createSeverityLabel(severity.value)
     }
 
+    @JvmStatic
     fun createLabel(story: Story): Label {
         return createStoryLabel(story.value)
     }
 
+    @JvmStatic
     fun createLabel(feature: Feature): Label {
         return createFeatureLabel(feature.value)
     }
 
+    @JvmStatic
     fun createLabel(epic: Epic): Label {
         return createEpicLabel(epic.value)
     }
 
     @JvmStatic
-    fun createIssueLink(value: String?): Link {
+    fun createIssueLink(value: String): Link {
         return createLink(value, null, null, ISSUE_LINK_TYPE)
     }
 
     @JvmStatic
-    fun createTmsLink(value: String?): Link {
+    fun createTmsLink(value: String): Link {
         return createLink(value, null, null, TMS_LINK_TYPE)
     }
 
+    @JvmStatic
     fun createLink(link: io.qameta.allure.kotlin.Link): Link {
         return createLink(link.value, link.name, link.url, link.type)
     }
 
+    @JvmStatic
     fun createLink(link: Issue): Link {
         return createIssueLink(link.value)
     }
 
+    @JvmStatic
     fun createLink(link: TmsLink): Link {
         return createTmsLink(link.value)
     }
 
     @JvmStatic
-    fun createLink(
-        value: String?, name: String?,
-        url: String?, type: String?
-    ): Link {
+    fun createLink(value: String?, name: String?, url: String?, type: String?): Link {
         val resolvedName = firstNonEmpty(value) ?: name
         val resolvedUrl = firstNonEmpty(url) ?: getLinkUrl(name = resolvedName, type = type)
         return Link(name = resolvedName, url = resolvedUrl, type = type)
     }
 
+    @JvmStatic
     fun getProvidedLabels(): Set<Label> {
         val properties = loadAllureProperties()
         val propertyNames = properties.stringPropertyNames()
         return propertyNames.asSequence()
-            .filter { name: String -> name.startsWith("allure.label.") }
-            .map { name: String ->
+            .filter { name -> name.startsWith("allure.label.") }
+            .mapNotNull { name: String ->
                 val labelName = name.substring(13)
-                val labelValue = properties.getProperty(name)
+                val labelValue = properties.getProperty(name) ?: return@mapNotNull null
                 Label(name = labelName, value = labelValue)
             }
-            .filter { it.value != null }
             .toSet()
     }
 
-    val hostName: String?
+    @get:JvmStatic
+    val hostName: String
         get() {
             val fromProperty = System.getProperty(ALLURE_HOST_NAME_SYSPROP)
             val fromEnv = System.getenv(ALLURE_HOST_NAME_ENV)
             return listOfNotNull(fromProperty, fromEnv).firstOrNull() ?: realHostName
         }
 
+    @get:JvmStatic
     val threadName: String
         get() {
             val fromProperty = System.getProperty(ALLURE_THREAD_NAME_SYSPROP)
@@ -236,6 +258,7 @@ object ResultsUtils {
 
     }
 
+    @JvmStatic
     fun getJavadocDescription(classLoader: ClassLoader, method: Method): String? {
         val name = method.name
         val parameterTypes: List<String> = method.parameterTypes.map { obj -> obj.typeName }
@@ -251,6 +274,7 @@ object ResultsUtils {
         )?.let { desc -> if (separateLines()) desc.replace("\n", "<br />") else desc }
     }
 
+    @JvmStatic
     fun firstNonEmpty(vararg items: String?): String? {
         return items.asSequence()
             .filterNotNull()
@@ -263,6 +287,7 @@ object ResultsUtils {
         return String.format("allure.link.%s.pattern", type)
     }
 
+    @JvmStatic
     fun generateMethodSignatureHash(
         className: String,
         methodName: String,
@@ -279,14 +304,17 @@ object ResultsUtils {
         return bytesToHex(bytes)
     }
 
+    @JvmStatic
     fun md5(source: String): String {
         return bytesToHex(md5Digest.digest(source.toByteArray(StandardCharsets.UTF_8)))
     }
 
+    @JvmStatic
     fun bytesToHex(bytes: ByteArray?): String {
         return BigInteger(1, bytes).toString(16)
     }
 
+    @get:JvmStatic
     val md5Digest: MessageDigest
         get() = try {
             MessageDigest.getInstance(MD_5)
@@ -300,22 +328,21 @@ object ResultsUtils {
         return pattern?.replace("{}", name ?: "")
     }
 
-    private val realHostName: String?
-        get() = cachedHost?.let {
-            try {
-                InetAddress.getLocalHost().hostName
-            } catch (e: UnknownHostException) {
-                LOGGER.debug("Could not get host name $e")
-                "default"
-            }.also {
-                cachedHost = it
-            }
+    private val realHostName: String
+        get() = cachedHost ?: try {
+            InetAddress.getLocalHost().hostName ?: "default"
+        } catch (e: UnknownHostException) {
+            LOGGER.debug("Could not get host name $e")
+            "default"
+        }.also {
+            cachedHost = it
         }
 
     private val realThreadName: String
         get() {
             //resolving of bean fails on Android due to NoClassDefFoundError, hence adding additional safety check
-            val bean = runCatching { ManagementFactory.getRuntimeMXBean().name }.getOrNull()?.let { "$it." } ?: ""
+            val bean = runCatching { ManagementFactory.getRuntimeMXBean().name }.getOrNull()
+                ?.let { "$it." } ?: ""
             val currentThread = Thread.currentThread()
             return "$bean${currentThread.name}(${currentThread.id})"
         }
@@ -326,30 +353,13 @@ object ResultsUtils {
         return stringWriter.toString()
     }
 
-    @Deprecated("use {@link #getJavadocDescription(ClassLoader, Method)} instead.")
-    fun processDescription(
-        classLoader: ClassLoader,
-        method: Method,
-        item: ExecutableItem
-    ) {
-        if (method.isAnnotationPresent(Description::class.java)) {
-            if (method.getAnnotation(Description::class.java).useJavaDoc) {
-                getJavadocDescription(classLoader, method)?.let {
-                    item.descriptionHtml = it
-                }
-            } else {
-                val description = method.getAnnotation(Description::class.java).value
-                item.description = description
-            }
-        }
-    }
-
     private fun readResource(
         classLoader: ClassLoader,
         resourceName: String
     ): String? {
         return try {
-            classLoader.getResourceAsStream(resourceName)?.toByteArray()?.let { String(it, StandardCharsets.UTF_8) }
+            classLoader.getResourceAsStream(resourceName)?.toByteArray()
+                ?.let { String(it, StandardCharsets.UTF_8) }
         } catch (e: IOException) {
             LOGGER.error("Unable to process description resource file", e)
             null
@@ -357,6 +367,9 @@ object ResultsUtils {
     }
 
     private fun separateLines(): Boolean {
-        return "true".equals(loadAllureProperties().getProperty(ALLURE_SEPARATE_LINES_SYSPROP), ignoreCase = true)
+        return "true".equals(
+            loadAllureProperties().getProperty(ALLURE_SEPARATE_LINES_SYSPROP),
+            ignoreCase = true
+        )
     }
 }
