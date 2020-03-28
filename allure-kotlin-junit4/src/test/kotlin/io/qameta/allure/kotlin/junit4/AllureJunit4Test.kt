@@ -30,7 +30,7 @@ internal class AllureJunit4Test {
         Assertions.assertThat(testResults)
             .hasSize(1)
             .extracting<Any, Exception>(TestResult::fullName)
-            .containsExactly("io.qameta.allure.junit4.samples.OneTest.simpleTest")
+            .containsExactly("io.qameta.allure.kotlin.junit4.samples.OneTest.simpleTest")
     }
 
     @Test
@@ -168,7 +168,7 @@ internal class AllureJunit4Test {
         val testResults = results.testResults
         Assertions.assertThat(testResults)
             .extracting<Any, Exception>(TestResult::name)
-            .containsExactly("io.qameta.allure.junit4.samples.IgnoredClassTest")
+            .containsExactly("io.qameta.allure.kotlin.junit4.samples.IgnoredClassTest")
     }
 
     @Test

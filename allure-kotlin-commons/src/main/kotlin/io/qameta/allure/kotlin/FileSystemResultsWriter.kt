@@ -6,7 +6,7 @@ import kotlinx.serialization.json.Json
 import java.io.File
 import java.io.IOException
 import java.io.InputStream
-import java.util.UUID
+import java.util.*
 
 class FileSystemResultsWriter(private val outputDirectory: File) : AllureResultsWriter {
     private val mapper: Json = Json.indented
@@ -65,7 +65,7 @@ class FileSystemResultsWriter(private val outputDirectory: File) : AllureResults
     companion object {
         @JvmStatic
         @JvmOverloads
-        fun generateTestResultName(uuid: String? = UUID.randomUUID().toString()): String {
+        fun generateTestResultName(uuid: String = UUID.randomUUID().toString()): String {
             return uuid + AllureConstants.TEST_RESULT_FILE_SUFFIX
         }
 

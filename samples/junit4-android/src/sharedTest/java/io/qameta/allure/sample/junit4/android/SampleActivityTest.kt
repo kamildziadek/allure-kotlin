@@ -8,32 +8,25 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import io.qameta.allure.kotlin.Allure
+import io.qameta.allure.android.AllureAndroidJUnit4
+import io.qameta.allure.android.extensions.screenshot
+import io.qameta.allure.android.rules.LogcatRule
+import io.qameta.allure.android.rules.ScreenshotRule
+import io.qameta.allure.kotlin.*
 import io.qameta.allure.kotlin.Allure.description
 import io.qameta.allure.kotlin.Allure.feature
 import io.qameta.allure.kotlin.Allure.issue
 import io.qameta.allure.kotlin.Allure.step
 import io.qameta.allure.kotlin.Allure.story
 import io.qameta.allure.kotlin.Allure.tms
-import io.qameta.allure.kotlin.Description
-import io.qameta.allure.kotlin.Epic
-import io.qameta.allure.kotlin.Feature
-import io.qameta.allure.kotlin.Issue
-import io.qameta.allure.kotlin.Lead
-import io.qameta.allure.kotlin.Owner
-import io.qameta.allure.kotlin.Severity
-import io.qameta.allure.kotlin.SeverityLevel
-import io.qameta.allure.kotlin.Story
-import io.qameta.allure.kotlin.TmsLink
-import io.qameta.allure.android.AllureAndroidJUnit4
-import io.qameta.allure.android.extensions.screenshot
-import io.qameta.allure.android.rules.LogcatRule
-import io.qameta.allure.android.rules.ScreenshotRule
 import io.qameta.allure.kotlin.junit4.DisplayName
 import io.qameta.allure.kotlin.junit4.Tag
-import org.junit.*
-import org.junit.rules.*
-import org.junit.runner.*
+import org.junit.Before
+import org.junit.Ignore
+import org.junit.Rule
+import org.junit.Test
+import org.junit.rules.RuleChain
+import org.junit.runner.RunWith
 
 @RunWith(AllureAndroidJUnit4::class)
 @Epic("Samples")
@@ -79,8 +72,8 @@ class SampleActivityTest {
     fun shouldTextChangeAfterClickWithMethods() {
         feature("Successes")
         story("Methods")
-        issue(name = "JIRA-123", url = null)
-        tms(name = "TR-123", url = null)
+        issue(name = "JIRA-123")
+        tms(name = "TR-123")
         description("Verification of text changing after interaction with a button")
 
         step("Click main button") {

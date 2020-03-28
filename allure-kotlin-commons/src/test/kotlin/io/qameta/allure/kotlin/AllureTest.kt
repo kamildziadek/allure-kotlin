@@ -19,9 +19,6 @@ import io.qameta.allure.kotlin.util.ObjectUtils
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 
-/**
- * @author charlie (Dmitry Baev).
- */
 class AllureTest {
 
     fun setLifecycle(lifecycle: AllureLifecycle) {
@@ -56,7 +53,7 @@ class AllureTest {
         val results = runWithinTestContext(
             Runnable {
                 step("first") {}
-                step("second") { this.doSomething() }
+                step("second") { doSomething() }
                 step("third") { Assertions.fail<Unit>("this step is failed") }
             },
             ::setLifecycle
@@ -160,9 +157,9 @@ class AllureTest {
         val (_, url2) = EnhancedRandom.random(Link::class.java)
         val results = runWithinTestContext(
             Runnable {
-                link(name, type, url)
-                link(name1, url1)
-                link(url2)
+                link(url = url!!, name = name!!, type = type!!)
+                link(url = url1!!, name = name1!!)
+                link(url = url2!!)
             },
             ::setLifecycle
         )
@@ -285,41 +282,41 @@ class AllureTest {
         }
 
         // Add parameters to step using injected StepContext
-        step("preparation checks") { step ->
-            step.parameter("a", "a value")
-            step.parameter("b", "b value")
+        step("preparation checks") {
+            parameter("a", "a value")
+            parameter("b", "b value")
         }
 
         // Nested step and dynamic step name
-        step { step ->
+        step {
             val a = step("child 1") { "A" }
             val b = step("child b") { "B" }
             val c = step("child b") { "C" }
 
-            step.name("dynamic name $a$b$c");
+            name("dynamic name $a$b$c")
         }
 
         // Create attachments as well as steps
         step("get data") {
             step("build client")
-            val responseData = step("run request") { step ->
-                step.parameter("authorization", token);
-                step.parameter("url", baseUrl);
-                val requestBody = step.parameter("requestBody", intArrayOf(1, 2, 3));
+            val responseData = step("run request") {
+                parameter("authorization", token)
+                parameter("url", baseUrl)
+                val requestBody = parameter("requestBody", intArrayOf(1, 2, 3))
 
-                getData(baseUrl, token, requestBody);
+                getData(baseUrl, token, requestBody)
             }
-            attachment("response", ObjectUtils.toString(responseData));
+            attachment("response", ObjectUtils.toString(responseData))
         }
 
     }
 
 
-    fun getData(url: String?, token: String?, body: Any?): List<String?>? {
+    private fun getData(url: String, token: String, body: Any): List<String?> {
         return emptyList<String>()
     }
 
-    fun getAuth(login: String?, password: String?): String? {
+    private fun getAuth(login: String?, password: String?): String {
         return String.format("Basic %s:%s", login, password)
     }
 }

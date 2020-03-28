@@ -11,9 +11,6 @@ import java.util.*
 /**
  * The class contains some useful methods to work with [AllureLifecycle].
  */
-//TODO fix nullability of parameters
-//TODO remove method overloads by using default parameters
-//TODO provide appropriate Java integration by adding @JvmStatic annotations
 object Allure {
 
     private const val TXT_EXTENSION = ".txt"
@@ -28,17 +25,9 @@ object Allure {
      * @param name   the name of step.
      * @param status the step status.
      */
-    /**
-     * Adds passed step with provided name in current test or step (or test fixture). Takes no effect
-     * if no test run at the moment. Shortcut for [.step].
-     *
-     * @param name the name of step.
-     */
     @JvmOverloads
-    fun step(
-        name: String,
-        status: Status = Status.PASSED
-    ) {
+    @JvmStatic
+    fun step(name: String, status: Status = Status.PASSED) {
         val uuid = UUID.randomUUID().toString()
         val step = StepResult().apply {
             this.name = name
@@ -49,35 +38,23 @@ object Allure {
     }
 
     /**
-     * Syntax sugar for [.step].
+     * Run provided [block] as step with given name. Takes no effect if no test run at the moment.
      *
-     * @param name     the name of step.
-     * @param runnable the step's body.
+     * @param block the step's body.
      */
+    @JvmOverloads
+    @JvmStatic
     fun <T> step(
-        name: String? = null,
-        runnable: (StepContext) -> T
+        name: String = "step",
+        block: StepContext.() -> T
     ): T {
-        return step {
-            it.name(name)
-            runnable(it)
-        }
-    }
-
-    /**
-     * Run provided [ThrowableRunnable] as step with given name. Takes no effect
-     * if no test run at the moment.
-     *
-     * @param runnable the step's body.
-     */
-    fun <T> step(runnable: (StepContext) -> T): T {
         val uuid = UUID.randomUUID().toString()
         lifecycle.startStep(uuid, StepResult().apply {
-            name = "step"
+            this.name = name
         })
 
         return try {
-            runnable(DefaultStepContext(uuid)).also {
+            block(DefaultStepContext(uuid)).also {
                 lifecycle.updateStep(uuid) { it.status = Status.PASSED }
             }
         } catch (throwable: Throwable) {
@@ -95,41 +72,45 @@ object Allure {
 
     /**
      * Adds epic label to current test or step (or fixture) if any. Takes no effect
-     * if no test run at the moment. Shortcut for [.label].
+     * if no test run at the moment. Shortcut for [label].
      *
      * @param value the value of label.
      */
-    fun epic(value: String?) {
+    @JvmStatic
+    fun epic(value: String) {
         label(ResultsUtils.EPIC_LABEL_NAME, value)
     }
 
     /**
      * Adds feature label to current test or step (or fixture) if any. Takes no effect
-     * if no test run at the moment. Shortcut for [.label].
+     * if no test run at the moment. Shortcut for [label].
      *
      * @param value the value of label.
      */
-    fun feature(value: String?) {
+    @JvmStatic
+    fun feature(value: String) {
         label(ResultsUtils.FEATURE_LABEL_NAME, value)
     }
 
     /**
      * Adds story label to current test or step (or fixture) if any. Takes no effect
-     * if no test run at the moment. Shortcut for [.label].
+     * if no test run at the moment. Shortcut for [label].
      *
      * @param value the value of label.
      */
-    fun story(value: String?) {
+    @JvmStatic
+    fun story(value: String) {
         label(ResultsUtils.STORY_LABEL_NAME, value)
     }
 
     /**
      * Adds suite label to current test or step (or fixture) if any. Takes no effect
-     * if no test run at the moment. Shortcut for [.label].
+     * if no test run at the moment. Shortcut for [label].
      *
      * @param value the value of label.
      */
-    fun suite(value: String?) {
+    @JvmStatic
+    fun suite(value: String) {
         label(ResultsUtils.SUITE_LABEL_NAME, value)
     }
 
@@ -140,7 +121,8 @@ object Allure {
      * @param name  the name of label.
      * @param value the value of label.
      */
-    fun label(name: String, value: String?) {
+    @JvmStatic
+    fun label(name: String, value: String) {
         val label = Label(name = name, value = value)
         lifecycle.updateTestCase { it.labels.add(label) }
     }
@@ -152,6 +134,7 @@ object Allure {
      * @param name  the name of parameter.
      * @param value the value of parameter.
      */
+    @JvmStatic
     fun <T> parameter(name: String, value: T): T {
         val parameter = ResultsUtils.createParameter(name, value)
         lifecycle.updateTestCase { it.parameters.add(parameter) }
@@ -160,57 +143,46 @@ object Allure {
 
     /**
      * Adds issue link to current test or step (or fixture) if any. Takes no effect
-     * if no test run at the moment. Shortcut for [.link].
+     * if no test run at the moment. Shortcut for [link].
      *
      * @param name the name of link.
      * @param url  the link's url.
      */
-    fun issue(name: String?, url: String?) {
-        link(name, ResultsUtils.ISSUE_LINK_TYPE, url)
+    @JvmOverloads
+    @JvmStatic
+    fun issue(name: String, url: String = "") {
+        link(url = url, name = name, type = ResultsUtils.ISSUE_LINK_TYPE)
     }
 
     /**
      * Adds tms link to current test or step (or fixture) if any. Takes no effect
-     * if no test run at the moment. Shortcut for [.link].
+     * if no test run at the moment. Shortcut for [link].
      *
      * @param name the name of link.
      * @param url  the link's url.
      */
-    fun tms(name: String?, url: String?) {
-        link(name, ResultsUtils.TMS_LINK_TYPE, url)
-    }
-
-    /**
-     * Adds link to current test or step (or fixture) if any. Takes no effect
-     * if no test run at the moment. Shortcut for [.link]
-     *
-     * @param url the link's url.
-     */
-    fun link(url: String?) {
-        link(null, url)
-    }
-
-    /**
-     * Adds link to current test or step (or fixture) if any. Takes no effect
-     * if no test run at the moment. Shortcut for [.link]
-     *
-     * @param name the name of link.
-     * @param url  the link's url.
-     */
-    fun link(name: String?, url: String?) {
-        link(name, null, url)
+    @JvmOverloads
+    @JvmStatic
+    fun tms(name: String, url: String = "") {
+        link(url = url, name = name, type = ResultsUtils.TMS_LINK_TYPE)
     }
 
     /**
      * Adds link to current test or step (or fixture) if any. Takes no effect
      * if no test run at the moment.
      *
+     * @param url  the link's url.
      * @param name the name of link.
      * @param type the type of link, used to display link icon in the report.
-     * @param url  the link's url.
      */
-    fun link(name: String?, type: String?, url: String?) {
-        val link = Link(name = name, url = url, type = type)
+    @JvmOverloads
+    @JvmStatic
+    fun link(url: String, name: String = "", type: String = "") {
+        val link = Link(
+            name = name.ifBlank { null },
+            url = url.ifBlank { null },
+            type = type.ifBlank { null }
+        )
         lifecycle.updateTestCase { it.links.add(link) }
     }
 
@@ -219,9 +191,10 @@ object Allure {
      * if no test run at the moment. Expecting description provided in Markdown format.
      *
      * @param description the description in markdown format.
-     * @see .descriptionHtml
+     * @see descriptionHtml
      */
-    fun description(description: String?) {
+    @JvmStatic
+    fun description(description: String) {
         lifecycle.updateTestCase { executable: TestResult ->
             executable.description = description
         }
@@ -233,81 +206,30 @@ object Allure {
      * specified.
      *
      * @param descriptionHtml the description in html format.
-     * @see .description
+     * @see description
      */
-    fun descriptionHtml(descriptionHtml: String?) {
+    @JvmStatic
+    fun descriptionHtml(descriptionHtml: String) {
         lifecycle.updateTestCase { executable: TestResult ->
             executable.descriptionHtml = descriptionHtml
         }
     }
 
     /**
-     * Adds attachment.
+     * Adds attachment with text content.
      *
      * @param name    the name of attachment.
      * @param content the attachment content.
+     * @param type the attachment type, be default [TEXT_PLAIN].
+     * @param fileExtension the file extension of attachment, be default [TXT_EXTENSION].
      */
-    fun attachment(name: String?, content: String) {
-        addAttachment(name, content)
-    }
-
-    /**
-     * Adds attachment.
-     *
-     * @param name    the name of attachment.
-     * @param content the stream that contains attachment content.
-     */
-    fun attachment(name: String?, content: InputStream) {
-        addAttachment(name, content)
-    }
-
-    @Deprecated("use {@link #label(String, String)} instead.")
-    fun addLabels(vararg labels: Label) {
-        lifecycle.updateTestCase {
-            it.labels.addAll(labels.toList())
-        }
-    }
-
-    @Deprecated("use {@link #link(String, String, String)} instead.")
-    fun addLinks(vararg links: Link) {
-        lifecycle.updateTestCase {
-            it.links.addAll(links.toList())
-        }
-    }
-
-    @Deprecated("use {@link #description(String)} instead.")
-    fun addDescription(description: String?) {
-        description(description)
-    }
-
-    @Deprecated("use {@link #descriptionHtml(String)} instead.")
-    fun addDescriptionHtml(descriptionHtml: String?) {
-        descriptionHtml(descriptionHtml)
-    }
-
-    fun addAttachment(name: String?, content: String) {
-        lifecycle.addAttachment(
-            name = name,
-            type = TEXT_PLAIN,
-            fileExtension = TXT_EXTENSION,
-            body = content.toByteArray(StandardCharsets.UTF_8)
-        )
-    }
-
-    fun addAttachment(name: String?, type: String?, content: String) {
-        lifecycle.addAttachment(
-            name = name,
-            type = type,
-            fileExtension = TXT_EXTENSION,
-            body = content.toByteArray(StandardCharsets.UTF_8)
-        )
-    }
-
-    fun addAttachment(
-        name: String?,
-        type: String?,
+    @JvmOverloads
+    @JvmStatic
+    fun attachment(
+        name: String,
         content: String,
-        fileExtension: String?
+        type: String = TEXT_PLAIN,
+        fileExtension: String = TXT_EXTENSION
     ) {
         lifecycle.addAttachment(
             name = name,
@@ -317,24 +239,35 @@ object Allure {
         )
     }
 
-    fun addAttachment(name: String?, content: InputStream) {
-        lifecycle.addAttachment(name = name, type = null, fileExtension = null, stream = content)
-    }
-
-    fun addAttachment(
-        name: String?,
-        type: String?,
+    /**
+     * Adds attachment with stream content.
+     *
+     * @param name    the name of attachment.
+     * @param content the stream that contains attachment content.
+     * @param type the attachment type.
+     * @param fileExtension the file extension of attachment.
+     */
+    @JvmOverloads
+    @JvmStatic
+    fun attachment(
+        name: String,
         content: InputStream,
-        fileExtension: String?
+        type: String? = null,
+        fileExtension: String? = null
     ) {
-        lifecycle.addAttachment(name = name, type = type, fileExtension = fileExtension, stream = content)
+        lifecycle.addAttachment(
+            name = name,
+            type = type,
+            fileExtension = fileExtension,
+            stream = content
+        )
     }
 
     /**
      * Step context.
      */
     interface StepContext {
-        fun name(name: String?)
+        fun name(name: String)
         fun <T> parameter(name: String, value: T): T
     }
 
@@ -342,7 +275,7 @@ object Allure {
      * Basic implementation of step context.
      */
     private class DefaultStepContext(private val uuid: String) : StepContext {
-        override fun name(name: String?) {
+        override fun name(name: String) {
             lifecycle.updateStep(uuid) { it.name = name }
         }
 

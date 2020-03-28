@@ -1,6 +1,6 @@
 package io.qameta.allure.kotlin
 
-import io.qameta.allure.kotlin.Allure.addAttachment
+import io.qameta.allure.kotlin.Allure.attachment
 import io.qameta.allure.kotlin.listener.LifecycleNotifier
 import io.qameta.allure.kotlin.listener.StepLifecycleListener
 import io.qameta.allure.kotlin.model.Status
@@ -42,7 +42,7 @@ internal class StepLifecycleListenerTest {
         val listener: StepLifecycleListener = object : StepLifecycleListener {
             override fun afterStepStart(result: StepResult) {
                 executionCount.incrementAndGet()
-                addAttachment("inner " + result.name, "some")
+                attachment("inner " + result.name, "some")
             }
         }
         val run = run(listener, "first", "second")
@@ -73,7 +73,7 @@ internal class StepLifecycleListenerTest {
         val listener: StepLifecycleListener = object : StepLifecycleListener {
             override fun beforeStepStop(result: StepResult) {
                 executionCount.incrementAndGet()
-                addAttachment("inner " + result.name, "some")
+                attachment("inner " + result.name, "some")
             }
         }
         val run = run(listener, "first", "second")

@@ -17,14 +17,14 @@ private const val TAG = "AllureExtensions"
  * @return true if screen shot is created and attached successfully, false otherwise
  */
 @Suppress("unused")
-fun Allure.screenshot(name: String? = null, quality: Int = 90): Boolean {
+fun Allure.screenshot(name: String = "screenshot", quality: Int = 90): Boolean {
     val uiAutomation = InstrumentationRegistry.getInstrumentation().uiAutomation ?: return false.also {
         Log.e(TAG, "UiAutomation is unavailable. Can't take the screenshot")
     }
     val inputStream = uiAutomation.takeScreenshot(quality) ?: return false.also {
         Log.e(TAG, "Failed to take the screenshot")
     }
-    addAttachment(name = name, type = "image/png", content = inputStream, fileExtension = ".png")
+    attachment(name = name, content = inputStream, type = "image/png", fileExtension = ".png")
     return true
 }
 

@@ -5,9 +5,9 @@ import android.os.ParcelFileDescriptor
 import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import io.qameta.allure.kotlin.Allure
-import org.junit.rules.*
-import org.junit.runner.*
-import org.junit.runners.model.*
+import org.junit.rules.TestRule
+import org.junit.runner.Description
+import org.junit.runners.model.Statement
 
 /**
  * Clears logcat before each test and dumps the logcat as an attachment after test failure.
@@ -35,7 +35,12 @@ class LogcatRule(private val fileName: String = "logcat-dump") : TestRule {
         }
         val pfd = uiAutomation.executeShellCommand("logcat -d")
         val inputStream = ParcelFileDescriptor.AutoCloseInputStream(pfd).buffered()
-        Allure.addAttachment(name = fileName, type = "text/plain", fileExtension = ".txt", content = inputStream)
+        Allure.attachment(
+            name = fileName,
+            content = inputStream,
+            type = "text/plain",
+            fileExtension = ".txt"
+        )
     }
 
     private fun clear() {
