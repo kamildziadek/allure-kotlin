@@ -1,3 +1,5 @@
+@file:JvmName("LogUtils")
+
 package io.qameta.allure.kotlin.util
 
 import java.util.logging.Level

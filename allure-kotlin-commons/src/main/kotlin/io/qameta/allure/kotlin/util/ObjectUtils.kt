@@ -3,15 +3,12 @@ package io.qameta.allure.kotlin.util
 import java.util.*
 import java.util.logging.Logger
 
-/**
- * @author charlie (Dmitry Baev).
- */
 object ObjectUtils {
     private val LOGGER: Logger = loggerFor<ObjectUtils>()
     /**
      * Returns string representation of given object. Pretty prints arrays.
      *
-     * @param `object` the given object.
+     * @param data the given object.
      * @return the string representation of given object.
      */
     @JvmStatic
